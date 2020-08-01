@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Posts on ZO ZO</title>
+    <link>https://Yfei1104.github.io/posts/</link>
+    <description>Recent content in Posts on ZO ZO</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Sat, 01 Aug 2020 20:44:05 +0800</lastBuildDate>
+    
+	<atom:link href="https://Yfei1104.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>FirstBlog</title>
+      <link>https://Yfei1104.github.io/posts/firstblog/</link>
+      <pubDate>Sat, 01 Aug 2020 20:44:05 +0800</pubDate>
+      
+      <guid>https://Yfei1104.github.io/posts/firstblog/</guid>
+      <description>从2020.8.1开始写博客，分享自己的所见所闻所感。</description>
+    </item>
+    
+  </channel>
+</rss>

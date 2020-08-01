@@ -114,6 +114,7 @@
 <p>第一种，当然是最常见的<code>read()</code>方法，也就是打开文件，把文件读一遍</p>
 <div class="highlight"><pre class="chroma"><code class="language-go" data-lang="go"><span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
     <span class="nx">file</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">os</span><span class="p">.</span><span class="nf">open</span><span class="p">(</span><span class="s">&#34;filename&#34;</span><span class="p">)</span>
+    
     <span class="k">if</span> <span class="nx">err</span> <span class="o">==</span> <span class="kc">nil</span> <span class="p">{</span>
     	<span class="nx">sum</span> <span class="o">:=</span> <span class="mi">0</span>
     	<span class="nx">buf</span> <span class="o">:=</span> <span class="nb">make</span><span class="p">([]</span><span class="kt">byte</span><span class="p">,</span> <span class="mi">1024</span><span class="p">)</span>
@@ -130,14 +131,69 @@
 </code></pre></div><p>这种方式需要打开文件，通过for循环反复的读取文件里面的内容，然后去计算文件的大小。效率低，代码量大。</p>
 <h3 id="font-colorredioutil方式font"><font color=red>ioutil方式</font></h3>
 <hr>
-<p>由于上面的代码量比较大，所以我们可能立刻会想到使用<code>ioutul</code>包的<code>ReadFile()</code>方法来替代，直接获取文件的内容，然后计算出文件的大小</p>
+<p>由于上面的代码量比较大，所以我们可能立刻会想到使用<code>ioutul</code>包的<code>ReadFile()</code>方法来替代，直接获取文件的内容，然后计算出文件的大小。</p>
 <div class="highlight"><pre class="chroma"><code class="language-go" data-lang="go"><span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
     <span class="nx">contents</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">ioutil</span><span class="p">.</span><span class="nf">ReadFile</span><span class="p">(</span><span class="s">&#34;filename&#34;</span><span class="p">)</span>
+    
     <span class="k">if</span> <span class="nx">err</span> <span class="o">==</span> <span class="kc">nil</span> <span class="p">{</span>
         <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;file size is &#34;</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="nx">contents</span><span class="p">))</span>
     <span class="p">}</span>
 <span class="p">}</span>
-</code></pre></div></div>
+</code></pre></div><p>虽然ioutil通过三行代码就可以搞定，但是这同时也存在着效率低的问题，尤其是当我们读取大型文件的时候。</p>
+<h3 id="font-colorredstat方法font"><font color=red>Stat方法</font></h3>
+<hr>
+<p>让我们再继续前进一步，我们不通过读取文件来计算它的大小，而是通过文件的信息。</p>
+<div class="highlight"><pre class="chroma"><code class="language-go" data-lang="go"><span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="nx">file</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">os</span><span class="p">.</span><span class="nf">open</span><span class="p">(</span><span class="s">&#34;filename&#34;</span><span class="p">)</span>
+    
+    <span class="k">if</span> <span class="nx">err</span> <span class="o">==</span> <span class="kc">nil</span> <span class="p">{</span>
+        <span class="nx">f</span><span class="p">,</span> <span class="nx">_</span> <span class="o">:=</span> <span class="nx">file</span><span class="p">.</span><span class="nf">Stat</span><span class="p">()</span>
+        <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;file size is &#34;</span><span class="p">,</span> <span class="nx">f</span><span class="p">.</span><span class="nf">Size</span><span class="p">())</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div><p>这种方式不会再读取文件的内容，而是通过<code>Stat()</code>方法直接获取文件的云数据信息，速度非常快，尤其是计算大文件时效果显著。但是它还不是最终方案，我们还可以进一步提升。因为它还要打开文件，那么我们可不可以不打开文件，直接获取文件的元数据信息呢？</p>
+<h3 id="font-colorred最终方案font"><font color=red>最终方案</font></h3>
+<hr>
+<p>这就是我们的最终方案，代码也很简单</p>
+<div class="highlight"><pre class="chroma"><code class="language-go" data-lang="go"><span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="nx">f</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">os</span><span class="p">.</span><span class="nf">Stat</span><span class="p">(</span><span class="s">&#34;filename&#34;</span><span class="p">)</span>
+    
+    <span class="k">if</span> <span class="nx">err</span> <span class="o">==</span> <span class="kc">nil</span> <span class="p">{</span>
+        <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;file size is &#34;</span><span class="p">,</span> <span class="nx">f</span><span class="p">.</span><span class="nf">Size</span><span class="p">())</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div><p>这里使用的是<code>os.Stat()</code>，通过它就可以直接获取文件的元数据信息。现在我们看看它都能获取哪些信息。</p>
+<h3 id="font-colorred获取文件的信息font"><font color=red>获取文件的信息</font></h3>
+<hr>
+<div class="highlight"><pre class="chroma"><code class="language-go" data-lang="go"><span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="nx">f</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">os</span><span class="p">.</span><span class="nf">Stat</span><span class="p">(</span><span class="s">&#34;filename&#34;</span><span class="p">)</span>
+    
+    <span class="k">if</span> <span class="nx">err</span> <span class="o">==</span> <span class="kc">nil</span> <span class="p">{</span>
+        <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;name: &#34;</span><span class="p">,</span> <span class="nx">f</span><span class="p">.</span><span class="nf">Name</span><span class="p">())</span> <span class="c1">// 获取文件的名字
+</span><span class="c1"></span>        <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;size: &#34;</span><span class="p">,</span> <span class="nx">f</span><span class="p">.</span><span class="nf">Size</span><span class="p">())</span> <span class="c1">// 获取文件的大小
+</span><span class="c1"></span>        <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;is dir: &#34;</span><span class="p">,</span> <span class="nx">f</span><span class="p">.</span><span class="nf">IdDir</span><span class="p">())</span> <span class="c1">// 判断是否是目录，返回bool类型
+</span><span class="c1"></span>        <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;mode: &#34;</span><span class="p">,</span> <span class="nx">f</span><span class="p">.</span><span class="nf">Mode</span><span class="p">())</span> <span class="c1">// 获取文件的权限模式
+</span><span class="c1"></span>        <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;modTime:&#34;</span><span class="p">,</span> <span class="nx">f</span><span class="p">.</span><span class="nf">ModTime</span><span class="p">())</span> <span class="c1">// 获取文件修改时间
+</span><span class="c1"></span>    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div><p><code>os.Stat()</code>函数有两个返回值，一个是文件信息，一个是<code>err</code>，通过<code>err</code>我们可以判断文件是否存在。</p>
+<p>当<code>err==nil</code>的时候，文件肯定是存在的；其次<code>err!=nil</code>的时候也不代表不存在，也有可能是在获取信息时遇到了error，这时候我们就需要进行严密的判断。</p>
+<div class="highlight"><pre class="chroma"><code class="language-go" data-lang="go"><span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+	<span class="nx">_</span><span class="p">,</span><span class="nx">err</span><span class="o">:=</span><span class="nx">os</span><span class="p">.</span><span class="nf">Stat</span><span class="p">(</span><span class="s">&#34;.&#34;</span><span class="p">)</span>
+    
+	<span class="k">if</span> <span class="nx">err</span> <span class="o">==</span><span class="kc">nil</span> <span class="p">{</span>
+		<span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;file exist&#34;</span><span class="p">)</span>
+    <span class="p">}</span><span class="k">else</span> <span class="k">if</span> <span class="nx">os</span><span class="p">.</span><span class="nf">IsNotExist</span><span class="p">(</span><span class="nx">err</span><span class="p">){</span>		<span class="c1">// os.IsNotExist(err) 来判断一个文件存不存在
+</span><span class="c1"></span>		<span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;file not exist&#34;</span><span class="p">)</span>
+	<span class="p">}</span><span class="k">else</span><span class="p">{</span>
+		<span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span>
+	<span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div><p>通过<code>os.IsNotExist</code>来判断一个文件不存在。最后<code>else</code>的可能性比较少，这个时候可以看下具体的错误是什么，再根据错误来判断文件是否存在。</p>
+<h3 id="font-colorred小结font"><font color=red>小结</font></h3>
+<hr>
+<p><code>os.Stat()</code>是一个非常好的函数，可以让我们非常高效的获取文件信息，所以在项目中尽可能的使用它。</p>
+</div>
                     <div class="post_footer">
                         
                     </div>

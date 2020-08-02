@@ -6,10 +6,19 @@
     <description>Recent content on ZO ZO</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Sat, 01 Aug 2020 21:16:53 +0800</lastBuildDate>
+    <lastBuildDate>Sun, 02 Aug 2020 08:59:21 +0800</lastBuildDate>
     
 	<atom:link href="https://Yfei1104.github.io/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>2</title>
+      <link>https://Yfei1104.github.io/posts/2/</link>
+      <pubDate>Sun, 02 Aug 2020 08:59:21 +0800</pubDate>
+      
+      <guid>https://Yfei1104.github.io/posts/2/</guid>
+      <description>在go语言中，我们有很多方法获取一个文件的大小。 Read字节方式 第一种，当然是最常见的read()方法，也就是打开文件，把文件读一遍 func main() { file, err := os.open(&amp;#34;filename&amp;#34;) if err == nil { sum := 0 buf := make([]byte, 1024) for { n, err := file.read(buf) sum += n if err == io.EOF { break</description>
+    </item>
     
     <item>
       <title>1. 获取文件的大小</title>

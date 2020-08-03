@@ -6,10 +6,19 @@
     <description>Recent content in Posts on miss you</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sat, 01 Aug 2020 21:16:53 +0800</lastBuildDate>
+    <lastBuildDate>Mon, 03 Aug 2020 14:19:24 +0800</lastBuildDate>
     
 	<atom:link href="https://Yfei1104.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>第二篇博客test</title>
+      <link>https://Yfei1104.github.io/2020/2/</link>
+      <pubDate>Mon, 03 Aug 2020 14:19:24 +0800</pubDate>
+      
+      <guid>https://Yfei1104.github.io/2020/2/</guid>
+      <description>func main() { fmt.Println(&amp;#34;Hello Word!&amp;#34;) } </description>
+    </item>
     
     <item>
       <title>golang获取文件的大小</title>

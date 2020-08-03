@@ -10,7 +10,7 @@
   
   
   <link rel="prev" href="https://Yfei1104.github.io/2020/firstblog/" />
-  <link rel="next" href="https://Yfei1104.github.io/2020/2/" />
+  
   <link rel="canonical" href="https://Yfei1104.github.io/2020/1/" />
   <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
@@ -22,10 +22,10 @@
   <title>
        
        
-           1. 获取文件的大小 | miss you
+           获取文件的大小 | miss you
        
   </title>
-  <meta name="title" content="1. 获取文件的大小 | miss you">
+  <meta name="title" content="获取文件的大小 | miss you">
     
   
   <link rel="stylesheet" href="/font/iconfont.css">
@@ -44,8 +44,8 @@
          "@id": "https:\/\/Yfei1104.github.io"
     },
     "articleSection" : "posts",
-    "name" : "1. 获取文件的大小",
-    "headline" : "1. 获取文件的大小",
+    "name" : "获取文件的大小",
+    "headline" : "获取文件的大小",
     "description" : "在go语言中，我们有很多方法获取一个文件的大小。\nRead字节方式  第一种，当然是最常见的read()方法，也就是打开文件，把文件读一遍\nfunc main() { file, err := os.open(\u0026#34;filename\u0026#34;) if err == nil { sum := 0 buf := make([]byte, 1024) for { n, err := file.read(buf) sum \u002b= n if err == io.EOF { break } } fmt.Println(\u0026#34;file size is \u0026#34;, sum) } } 这种方式需要打开文件，通过for循环反复的读取文件里面的内容，然后去计算文件的大小。效率低，代码量大。\nioutil方式  由于上面的代码量比较大，所以我们可能立刻会想到使用ioutul包的ReadFile()方法来替代，直接获取文件的内容，然后计算出文件的大小。\nfunc main() { contents, err := ioutil.ReadFile(\u0026#34;filename\u0026#34;) if err == nil { fmt.Println(\u0026#34;file size is \u0026#34;, len(contents)) } } 虽然ioutil通过三行代码就可以搞定，但是这同时也存在着效率低的问题，尤其是当我们读取大型文件的时候。",
     "inLanguage" : "en-us",
     "author" : "Yfei",
@@ -116,7 +116,7 @@
       		
 <article class="post-warp" itemscope itemtype="http://schema.org/Article">
     <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">1. 获取文件的大小</h1>
+        <h1 class="post-title" itemprop="name headline">获取文件的大小</h1>
         <div class="post-meta">
                 Written by <a itemprop="name" href="https://Yfei1104.github.io" rel="author">Yfei</a> with ♥ 
                 <span class="post-time">
@@ -264,8 +264,6 @@
         
         <a href="https://Yfei1104.github.io/2020/firstblog/" class="prev" rel="prev" title="FirstBlog"><i class="iconfont icon-left"></i>&nbsp;FirstBlog</a>
          
-        
-        <a href="https://Yfei1104.github.io/2020/2/" class="next" rel="next" title="2">2&nbsp;<i class="iconfont icon-right"></i></a>
         
     </div>
 

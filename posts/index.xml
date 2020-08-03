@@ -6,26 +6,13 @@
     <description>Recent content in Posts on miss you</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sun, 02 Aug 2020 08:59:21 +0800</lastBuildDate>
+    <lastBuildDate>Sat, 01 Aug 2020 21:16:53 +0800</lastBuildDate>
     
 	<atom:link href="https://Yfei1104.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
-      <title>2</title>
-      <link>https://Yfei1104.github.io/2020/2/</link>
-      <pubDate>Sun, 02 Aug 2020 08:59:21 +0800</pubDate>
-      
-      <guid>https://Yfei1104.github.io/2020/2/</guid>
-      <description>在go语言中，我们有很多方法获取一个文件的大小。
-Read字节方式  第一种，当然是最常见的read()方法，也就是打开文件，把文件读一遍
-func main() { file, err := os.open(&amp;#34;filename&amp;#34;) if err == nil { sum := 0 buf := make([]byte, 1024) for { n, err := file.read(buf) sum += n if err == io.EOF { break } } fmt.Println(&amp;#34;file size is &amp;#34;, sum) } } 这种方式需要打开文件，通过for循环反复的读取文件里面的内容，然后去计算文件的大小。效率低，代码量大。
-ioutil方式  由于上面的代码量比较大，所以我们可能立刻会想到使用ioutul包的ReadFile()方法来替代，直接获取文件的内容，然后计算出文件的大小。
-func main() { contents, err := ioutil.ReadFile(&amp;#34;filename&amp;#34;) if err == nil { fmt.Println(&amp;#34;file size is &amp;#34;, len(contents)) } } 虽然ioutil通过三行代码就可以搞定，但是这同时也存在着效率低的问题，尤其是当我们读取大型文件的时候。</description>
-    </item>
-    
-    <item>
-      <title>1. 获取文件的大小</title>
+      <title>获取文件的大小</title>
       <link>https://Yfei1104.github.io/2020/1/</link>
       <pubDate>Sat, 01 Aug 2020 21:16:53 +0800</pubDate>
       

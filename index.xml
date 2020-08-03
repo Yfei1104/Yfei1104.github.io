@@ -1,41 +1,20 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>ZO ZO</title>
+    <title>miss you on miss you</title>
     <link>https://Yfei1104.github.io/</link>
-    <description>Recent content on ZO ZO</description>
+    <description>Recent content in miss you on miss you</description>
     <generator>Hugo -- gohugo.io</generator>
-    <language>en</language>
+    <language>en-us</language>
     <lastBuildDate>Sun, 02 Aug 2020 08:59:21 +0800</lastBuildDate>
-    
-	<atom:link href="https://Yfei1104.github.io/index.xml" rel="self" type="application/rss+xml" />
-    
+    <atom:link href="/" rel="self" type="application/rss+xml" />
     
     <item>
-      <title>2</title>
-      <link>https://Yfei1104.github.io/posts/2/</link>
+      <title>Posts</title>
+      <link>https://Yfei1104.github.io/posts/</link>
       <pubDate>Sun, 02 Aug 2020 08:59:21 +0800</pubDate>
       
-      <guid>https://Yfei1104.github.io/posts/2/</guid>
-      <description>在go语言中，我们有很多方法获取一个文件的大小。 Read字节方式 第一种，当然是最常见的read()方法，也就是打开文件，把文件读一遍 func main() { file, err := os.open(&amp;#34;filename&amp;#34;) if err == nil { sum := 0 buf := make([]byte, 1024) for { n, err := file.read(buf) sum += n if err == io.EOF { break</description>
-    </item>
-    
-    <item>
-      <title>1. 获取文件的大小</title>
-      <link>https://Yfei1104.github.io/posts/1/</link>
-      <pubDate>Sat, 01 Aug 2020 21:16:53 +0800</pubDate>
-      
-      <guid>https://Yfei1104.github.io/posts/1/</guid>
-      <description>在go语言中，我们有很多方法获取一个文件的大小。 Read字节方式 第一种，当然是最常见的read()方法，也就是打开文件，把文件读一遍 func main() { file, err := os.open(&amp;#34;filename&amp;#34;) if err == nil { sum := 0 buf := make([]byte, 1024) for { n, err := file.read(buf) sum += n if err == io.EOF { break</description>
-    </item>
-    
-    <item>
-      <title>FirstBlog</title>
-      <link>https://Yfei1104.github.io/posts/firstblog/</link>
-      <pubDate>Sat, 01 Aug 2020 20:44:05 +0800</pubDate>
-      
-      <guid>https://Yfei1104.github.io/posts/firstblog/</guid>
-      <description>从2020.8.1开始写博客，分享自己的所见所闻所感。</description>
+      <guid>https://Yfei1104.github.io/posts/</guid>
+      <description></description>
     </item>
     
   </channel>

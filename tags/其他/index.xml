@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>其他 on miss you</title>
+    <link>https://Yfei1104.github.io/tags/%E5%85%B6%E4%BB%96/</link>
+    <description>Recent content in 其他 on miss you</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sat, 01 Aug 2020 20:44:05 +0800</lastBuildDate>
+    
+	<atom:link href="https://Yfei1104.github.io/tags/%E5%85%B6%E4%BB%96/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>FirstBlog</title>
+      <link>https://Yfei1104.github.io/2020/firstblog/</link>
+      <pubDate>Sat, 01 Aug 2020 20:44:05 +0800</pubDate>
+      
+      <guid>https://Yfei1104.github.io/2020/firstblog/</guid>
+      <description>从2020.8.1开始写博客，分享自己的所见所闻所感。</description>
+    </item>
+    
+  </channel>
+</rss>

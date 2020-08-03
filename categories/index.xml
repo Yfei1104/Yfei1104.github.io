@@ -6,9 +6,28 @@
     <description>Recent content in Categories on miss you</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
+    <lastBuildDate>Sat, 01 Aug 2020 21:16:53 +0800</lastBuildDate>
     
 	<atom:link href="https://Yfei1104.github.io/categories/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Golang</title>
+      <link>https://Yfei1104.github.io/categories/golang/</link>
+      <pubDate>Sat, 01 Aug 2020 21:16:53 +0800</pubDate>
+      
+      <guid>https://Yfei1104.github.io/categories/golang/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>其他</title>
+      <link>https://Yfei1104.github.io/categories/%E5%85%B6%E4%BB%96/</link>
+      <pubDate>Sat, 01 Aug 2020 20:44:05 +0800</pubDate>
+      
+      <guid>https://Yfei1104.github.io/categories/%E5%85%B6%E4%BB%96/</guid>
+      <description></description>
+    </item>
     
   </channel>
 </rss>

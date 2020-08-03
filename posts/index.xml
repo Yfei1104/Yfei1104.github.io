@@ -12,7 +12,7 @@
     
     
     <item>
-      <title>获取文件的大小</title>
+      <title>golang获取文件的大小</title>
       <link>https://Yfei1104.github.io/2020/1/</link>
       <pubDate>Sat, 01 Aug 2020 21:16:53 +0800</pubDate>
       
@@ -25,7 +25,7 @@ func main() { contents, err := ioutil.ReadFile(&amp;#34;filename&amp;#34;) if er
     </item>
     
     <item>
-      <title>FirstBlog</title>
+      <title>写博客的开始</title>
       <link>https://Yfei1104.github.io/2020/firstblog/</link>
       <pubDate>Sat, 01 Aug 2020 20:44:05 +0800</pubDate>
       

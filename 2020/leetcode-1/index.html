@@ -22,10 +22,10 @@
   <title>
        
        
-           双指针 | miss you
+           leetcode-双指针 | miss you
        
   </title>
-  <meta name="title" content="双指针 | miss you">
+  <meta name="title" content="leetcode-双指针 | miss you">
     
   
   <link rel="stylesheet" href="/font/iconfont.css">
@@ -44,8 +44,8 @@
          "@id": "https:\/\/Yfei1104.github.io"
     },
     "articleSection" : "posts",
-    "name" : "双指针",
-    "headline" : "双指针",
+    "name" : "leetcode-双指针",
+    "headline" : "leetcode-双指针",
     "description" : "leetcode 167. 两数之和 II - 输入有序数组  题目描述：给定一个已按照升序排列 的有序数组，找到两个数使得它们相加之和等于目标数。\n函数应该返回这两个下标值 index1 和 index2，其中 index1 必须小于 index2。\n 方法一：二分查找 在数组中找到两个数之和等于目标值，可以先固定一个数，然后利用有序数组的性质，二分查找第二个数。为了避免重复，第二个数只能从第一个数右侧找。\n遍历数组时间复杂度O(N)，二分查找O(lgN)，所以总的时间复杂度O(NlgN)。空间复杂度O(1)。\nclass Solution { public: vector\u0026lt;int\u0026gt; twoSum(vector\u0026lt;int\u0026gt;\u0026amp; num, int target) { for (int i = 0; i \u0026lt; num.size(); i \u002b\u002b) { int l = i \u002b 1, r = num.size() - 1; while (l \u0026lt; r) { int mid = (l \u002b r) \u0026gt;\u0026gt; 1; if (num[mid] \u0026gt;= target - num[i])\tr = mid; else\tl = mid \u002b 1; } if (num[l] \u002b num[r] == target)\treturn {i \u002b 1, l \u002b 1}; } return {-1, -1}; } }; 方法二：双指针 使用双指针，一个指针指向值较小的元素，一个指针指向值较大的元素。指向较小元素的指针从头向尾遍历，指向较大元素的指针从尾向头遍历。",
     "inLanguage" : "en-us",
     "author" : "Yfei",
@@ -116,7 +116,7 @@
       		
 <article class="post-warp" itemscope itemtype="http://schema.org/Article">
     <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">双指针</h1>
+        <h1 class="post-title" itemprop="name headline">leetcode-双指针</h1>
         <div class="post-meta">
                 Written by <a itemprop="name" href="https://Yfei1104.github.io" rel="author">Yfei</a> with ♥ 
                 <span class="post-time">
@@ -291,7 +291,7 @@
 
     <div class="post-nav">
         
-        <a href="https://Yfei1104.github.io/2020/go-1/" class="prev" rel="prev" title="golang获取文件的大小"><i class="iconfont icon-left"></i>&nbsp;golang获取文件的大小</a>
+        <a href="https://Yfei1104.github.io/2020/go-1/" class="prev" rel="prev" title="golang-获取文件的大小"><i class="iconfont icon-left"></i>&nbsp;golang-获取文件的大小</a>
          
         
     </div>

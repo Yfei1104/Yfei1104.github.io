@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+  <meta http-equiv="content-type" content="text/html;charset=utf-8">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noodp"/>
+  <meta name="author" content="Yfei">
+  
+  
+  
+  <link rel="prev" href="https://Yfei1104.github.io/2020/go-1/" />
+  
+  <link rel="canonical" href="https://Yfei1104.github.io/2020/leetcode-1/" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+  <meta name="msapplication-TileColor" content="#da532c">
+  <meta name="theme-color" content="#ffffff">
+  <title>
+       
+       
+           双指针 | miss you
+       
+  </title>
+  <meta name="title" content="双指针 | miss you">
+    
+  
+  <link rel="stylesheet" href="/font/iconfont.css">
+  <link rel="stylesheet" href="/css/main.min.css">
+
+
+  
+  
+ 
+
+<script type="application/ld+json">
+ "@context" : "http://schema.org",
+    "@type" : "BlogPosting",
+    "mainEntityOfPage": {
+         "@type": "WebPage",
+         "@id": "https:\/\/Yfei1104.github.io"
+    },
+    "articleSection" : "posts",
+    "name" : "双指针",
+    "headline" : "双指针",
+    "description" : "leetcode 167. 两数之和 II - 输入有序数组  题目描述：给定一个已按照升序排列 的有序数组，找到两个数使得它们相加之和等于目标数。\n函数应该返回这两个下标值 index1 和 index2，其中 index1 必须小于 index2。\n 方法一：二分查找 在数组中找到两个数之和等于目标值，可以先固定一个数，然后利用有序数组的性质，二分查找第二个数。为了避免重复，第二个数只能从第一个数右侧找。\n遍历数组时间复杂度O(N)，二分查找O(lgN)，所以总的时间复杂度O(NlgN)。空间复杂度O(1)。\nclass Solution { public: vector\u0026lt;int\u0026gt; twoSum(vector\u0026lt;int\u0026gt;\u0026amp; num, int target) { for (int i = 0; i \u0026lt; num.size(); i \u002b\u002b) { int l = i \u002b 1, r = num.size() - 1; while (l \u0026lt; r) { int mid = (l \u002b r) \u0026gt;\u0026gt; 1; if (num[mid] \u0026gt;= target - num[i])\tr = mid; else\tl = mid \u002b 1; } if (num[l] \u002b num[r] == target)\treturn {i \u002b 1, l \u002b 1}; } return {-1, -1}; } }; 方法二：双指针 使用双指针，一个指针指向值较小的元素，一个指针指向值较大的元素。指向较小元素的指针从头向尾遍历，指向较大元素的指针从尾向头遍历。",
+    "inLanguage" : "en-us",
+    "author" : "Yfei",
+    "creator" : "Yfei",
+    "publisher": "Yfei",
+    "accountablePerson" : "Yfei",
+    "copyrightHolder" : "Yfei",
+    "copyrightYear" : "2020",
+    "datePublished": "2020-08-03 15:59:15 \u002b0800 CST",
+    "dateModified" : "2020-08-03 15:59:15 \u002b0800 CST",
+    "url" : "https:\/\/Yfei1104.github.io\/2020\/leetcode-1\/",
+    "wordCount" : "449",
+    "keywords" : [ "leetcode", "miss you"]
+}
+</script>
+
+</head>
+
+  
+
+
+  <body class="">
+    <div class="wrapper">
+        <nav class="navbar">
+    <div class="container">
+        <div class="navbar-header header-logo">
+        	<a href="javascript:void(0);" class="theme-switch"><i class="iconfont icon-xihuan"></i></a>&nbsp;<a href="https://Yfei1104.github.io">miss you</a>
+        </div>
+        <div class="menu navbar-right">
+                
+                
+                <a class="menu-item" href="/posts/" title="">Blog</a>
+                
+                <a class="menu-item" href="/categories/" title="">Categories</a>
+                
+                <a class="menu-item" href="/tags/" title="">Tags</a>
+                
+                <a class="menu-item" href="/about/" title="">About</a>
+                
+        </div>
+    </div>
+</nav>
+<nav class="navbar-mobile" id="nav-mobile" style="display: none">
+     <div class="container">
+        <div class="navbar-header">
+            <div>  <a href="javascript:void(0);" class="theme-switch"><i class="iconfont icon-xihuan"></i></a>&nbsp;<a href="https://Yfei1104.github.io">miss you</a></div>
+            <div class="menu-toggle">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+     
+          <div class="menu" id="mobile-menu">
+                
+                
+                <a class="menu-item" href="/posts/" title="">Blog</a>
+                
+                <a class="menu-item" href="/categories/" title="">Categories</a>
+                
+                <a class="menu-item" href="/tags/" title="">Tags</a>
+                
+                <a class="menu-item" href="/about/" title="">About</a>
+                
+        </div>
+    </div>
+</nav>
+    	 <main class="main">
+          <div class="container">
+      		
+<article class="post-warp" itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">双指针</h1>
+        <div class="post-meta">
+                Written by <a itemprop="name" href="https://Yfei1104.github.io" rel="author">Yfei</a> with ♥ 
+                <span class="post-time">
+                on <time datetime=2020-08-03 itemprop="datePublished">August 3, 2020</time>
+                </span>
+                in
+                <i class="iconfont icon-folder"></i>
+                <span class="post-category">
+                        <a href="https://Yfei1104.github.io/categories/leetcode/"> leetcode </a>
+                        
+                </span>
+        </div>
+    </header>
+    <div class="post-content">
+        
+
+        
+
+        
+        
+     
+          
+          
+          
+
+          
+          
+          
+
+          <h4 id="font-colorredleetcode-167-两数之和-ii---输入有序数组font"><!-- raw HTML omitted -->leetcode 167. 两数之和 II - 输入有序数组<!-- raw HTML omitted --></h4>
+<hr>
+<p>题目描述：给定一个已按照升序排列 的有序数组，找到两个数使得它们相加之和等于目标数。</p>
+<p>函数应该返回这两个下标值<code> index1</code> 和<code> index2</code>，其中<code> index1</code> 必须小于<code> index2</code>。</p>
+<hr>
+<h5 id="方法一二分查找">方法一：二分查找</h5>
+<p>在数组中找到两个数之和等于目标值，可以先固定一个数，然后利用有序数组的性质，二分查找第二个数。为了避免重复，第二个数只能从第一个数右侧找。</p>
+<p>遍历数组时间复杂度O(N)，二分查找O(lgN)，所以总的时间复杂度O(NlgN)。空间复杂度O(1)。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c++" data-lang="c++"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Solution</span> {
+<span style="color:#66d9ef">public</span><span style="color:#f92672">:</span>
+    vector<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;</span> twoSum(vector<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;&amp;</span> num, <span style="color:#66d9ef">int</span> target) {
+        <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">int</span> i <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; i <span style="color:#f92672">&lt;</span> num.size(); i <span style="color:#f92672">++</span>) {
+            <span style="color:#66d9ef">int</span> l <span style="color:#f92672">=</span> i <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>, r <span style="color:#f92672">=</span> num.size() <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>;
+            <span style="color:#66d9ef">while</span> (l <span style="color:#f92672">&lt;</span> r) {
+                <span style="color:#66d9ef">int</span> mid <span style="color:#f92672">=</span> (l <span style="color:#f92672">+</span> r) <span style="color:#f92672">&gt;&gt;</span> <span style="color:#ae81ff">1</span>;
+                <span style="color:#66d9ef">if</span> (num[mid] <span style="color:#f92672">&gt;=</span> target <span style="color:#f92672">-</span> num[i])	r <span style="color:#f92672">=</span> mid;
+                <span style="color:#66d9ef">else</span>	l <span style="color:#f92672">=</span> mid <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>;
+            }
+            <span style="color:#66d9ef">if</span> (num[l] <span style="color:#f92672">+</span> num[r] <span style="color:#f92672">==</span> target)	<span style="color:#66d9ef">return</span> {i <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>, l <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>};
+        }
+        <span style="color:#66d9ef">return</span> {<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>, <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>};
+    }
+};
+</code></pre></div><h5 id="方法二双指针">方法二：双指针</h5>
+<p>使用双指针，一个指针指向值较小的元素，一个指针指向值较大的元素。指向较小元素的指针从头向尾遍历，指向较大元素的指针从尾向头遍历。</p>
+<ul>
+<li>如果两个指针指向元素的和 sum == target，那么得到要求的结果；</li>
+<li>如果 sum &gt; target，移动较大的元素，使 sum 变小一些；</li>
+<li>如果 sum &lt; target，移动较小的元素，使 sum 变大一些。</li>
+</ul>
+<p>数组中的元素最多遍历一次，时间复杂度为 O(N)。空间复杂度为 O(1)。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c++" data-lang="c++"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Solution</span> {
+<span style="color:#66d9ef">public</span><span style="color:#f92672">:</span>
+    vector<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;</span> twoSum(vector<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;&amp;</span> num, <span style="color:#66d9ef">int</span> target) {
+        <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">int</span> i <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>, j <span style="color:#f92672">=</span> num.size() <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>; i <span style="color:#f92672">&lt;</span> num.size(); i <span style="color:#f92672">++</span>) {
+            <span style="color:#66d9ef">while</span> (i <span style="color:#f92672">&lt;</span> j <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span> <span style="color:#f92672">&amp;&amp;</span> num[i] <span style="color:#f92672">+</span> num[j <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>] <span style="color:#f92672">&gt;=</span> target)	j <span style="color:#f92672">--</span>;
+            <span style="color:#66d9ef">if</span> (num[i] <span style="color:#f92672">+</span> num[j] <span style="color:#f92672">==</span> target)	<span style="color:#66d9ef">return</span> {i <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>, j <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>};
+        }
+        <span style="color:#66d9ef">return</span> {<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>, <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>};
+    }
+};
+</code></pre></div><h4 id="font-colorredleetcode-633-两数平方和font"><!-- raw HTML omitted -->leetcode 633. 两数平方和<!-- raw HTML omitted --></h4>
+<hr>
+<p>题目描述：给定一个非负整数 <code>c</code> ，你要判断是否存在两个整数 <code>a</code> 和 <code>b</code>，使得$ a^2 + b^2 = c$。</p>
+<hr>
+<p>这道题用双指针做很方便。为了缩小范围，可以查找[ 0 - sqrt(c) ]之间的数值</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c++" data-lang="c++"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Solution</span> {
+<span style="color:#66d9ef">public</span><span style="color:#f92672">:</span>
+    <span style="color:#66d9ef">bool</span> judgeSquareSum(<span style="color:#66d9ef">int</span> c) {
+        <span style="color:#66d9ef">long</span> i <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>, j <span style="color:#f92672">=</span> sqrt(c);
+        
+        <span style="color:#66d9ef">while</span>(i <span style="color:#f92672">&lt;</span> j) {
+            <span style="color:#66d9ef">if</span> (i <span style="color:#f92672">*</span> i <span style="color:#f92672">+</span> j <span style="color:#f92672">*</span> j <span style="color:#f92672">==</span> c)    <span style="color:#66d9ef">return</span> true;
+            <span style="color:#66d9ef">else</span> <span style="color:#a6e22e">if</span> (i <span style="color:#f92672">*</span> i <span style="color:#f92672">+</span> j <span style="color:#f92672">*</span> j <span style="color:#f92672">&gt;</span> c)    j <span style="color:#f92672">--</span>;
+            <span style="color:#66d9ef">else</span> i <span style="color:#f92672">++</span>;
+        }
+        <span style="color:#66d9ef">return</span> false;
+    }
+};
+</code></pre></div><p>时间复杂度为 O(N)。</p>
+<p>空间复杂度为 O(1)。</p>
+<h4 id="font-colorredleetcode-345-反转字符串中的元音字符font"><!-- raw HTML omitted -->leetcode 345. 反转字符串中的元音字符<!-- raw HTML omitted --></h4>
+<hr>
+<p>题目描述：编写一个函数，以字符串作为输入，反转该字符串中的元音字母。</p>
+<hr>
+<p>使用双指针，一个指针从头向尾遍历，一个指针从尾到头遍历，当两个指针都遍历到元音字符时，交换这两个元音字符。当遇到元音字母时交换。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c++" data-lang="c++"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Solution</span> {
+<span style="color:#66d9ef">public</span><span style="color:#f92672">:</span>
+    string reverseVowels(string s) {
+        <span style="color:#66d9ef">int</span> i <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>, j <span style="color:#f92672">=</span> s.length() <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>;
+        <span style="color:#66d9ef">while</span> (i <span style="color:#f92672">&lt;</span> j) {
+             <span style="color:#66d9ef">if</span> (<span style="color:#f92672">!</span> isVowel(s[i])) {i <span style="color:#f92672">++</span>; <span style="color:#66d9ef">continue</span>;} 
+             <span style="color:#66d9ef">if</span> (<span style="color:#f92672">!</span> isVowel(s[j])) {j <span style="color:#f92672">--</span>; <span style="color:#66d9ef">continue</span>;} 
+             swap (s[i<span style="color:#f92672">++</span>],s[j<span style="color:#f92672">--</span>]);
+        } 
+        <span style="color:#66d9ef">return</span> s;
+    }
+    
+    <span style="color:#66d9ef">bool</span> <span style="color:#a6e22e">isVowel</span>(<span style="color:#66d9ef">char</span> c) {
+        <span style="color:#66d9ef">return</span> (c <span style="color:#f92672">==</span> <span style="color:#e6db74">&#39;a&#39;</span> <span style="color:#f92672">||</span> c <span style="color:#f92672">==</span> <span style="color:#e6db74">&#39;A&#39;</span> <span style="color:#f92672">||</span> c <span style="color:#f92672">==</span> <span style="color:#e6db74">&#39;i&#39;</span> <span style="color:#f92672">||</span> c <span style="color:#f92672">==</span> <span style="color:#e6db74">&#39;I&#39;</span> 
+                <span style="color:#f92672">||</span> c <span style="color:#f92672">==</span> <span style="color:#e6db74">&#39;o&#39;</span> <span style="color:#f92672">||</span> c <span style="color:#f92672">==</span> <span style="color:#e6db74">&#39;O&#39;</span> <span style="color:#f92672">||</span> c <span style="color:#f92672">==</span> <span style="color:#e6db74">&#39;u&#39;</span> 
+                <span style="color:#f92672">||</span> c <span style="color:#f92672">==</span> <span style="color:#e6db74">&#39;U&#39;</span> <span style="color:#f92672">||</span> c <span style="color:#f92672">==</span> <span style="color:#e6db74">&#39;e&#39;</span> <span style="color:#f92672">||</span> c <span style="color:#f92672">==</span> <span style="color:#e6db74">&#39;E&#39;</span>) ;
+    }
+};
+</code></pre></div><p>时间复杂度为 O(N)。</p>
+<p>空间复杂度为 O(1)。</p>
+<h4 id="font-colorredleetcode-680-验证回文字符串-iifont"><!-- raw HTML omitted -->leetcode 680. 验证回文字符串 II<!-- raw HTML omitted --></h4>
+<hr>
+<p>题目描述：给定一个非空字符串 <code>s</code>，<strong>最多</strong>删除一个字符。判断是否能成为回文字符串。</p>
+<hr>
+<p>在允许最多删除一个字符的情况下，可以使用双指针和贪心算法实现。初始化两个指针<code> i</code> 和<code> j</code> 分别指向字符串的第一个字符和最后一个字符。每次判断两个指针指向的字符是否相同，如果相同，则更新指针，然后继续判断直到遇到不相同的字符。两个指针指向的字符不同，则两个字符中必须有一个被删除，此时我们就分成两种情况：即删除左指针对应的字符，留下子串<code> s[i + 1], s[i + 1], ..., s[j]</code>，或者删除右指针对应的字符，留下子串 <code>s[i], s[i + 1], ..., s[j - 1]</code>。当这两个子串中至少有一个是回文串时，就说明原始字符串删除一个字符之后就以成为回文串。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c++" data-lang="c++"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Solution</span> {
+<span style="color:#66d9ef">public</span><span style="color:#f92672">:</span>
+    <span style="color:#66d9ef">bool</span> validPalindrome(string s) {
+        <span style="color:#66d9ef">int</span> i <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>, j <span style="color:#f92672">=</span> s.size() <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>;
+		<span style="color:#66d9ef">for</span> ( ; i <span style="color:#f92672">&lt;</span> j <span style="color:#f92672">&amp;&amp;</span> s[i] <span style="color:#f92672">==</span> s[j]; <span style="color:#f92672">++</span>i, <span style="color:#f92672">--</span>j);
+        <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">isPalindrome</span>(s, i <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>, j) <span style="color:#f92672">||</span> isPalindrome(s, i, j <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>)
+    }
+    
+    <span style="color:#66d9ef">bool</span> isPalindrome(string s, <span style="color:#66d9ef">int</span> i, <span style="color:#66d9ef">int</span> j) {
+        <span style="color:#66d9ef">for</span> ( ; i <span style="color:#f92672">&lt;</span> j <span style="color:#f92672">&amp;&amp;</span> s[i] <span style="color:#f92672">==</span>s[j]<span style="color:#f92672">:</span> <span style="color:#f92672">++</span>i, <span style="color:#f92672">--</span>j);
+        <span style="color:#66d9ef">return</span> i <span style="color:#f92672">&gt;=</span> j;
+    }
+};
+</code></pre></div><p>时间复杂度为 O(N)。</p>
+<p>空间复杂度为 O(1)。</p>
+
+    </div>
+
+    <div class="post-copyright">
+             
+            <p class="copyright-item">
+                <span>Author:</span>
+                <span>Yfei </span>
+                </p>
+            
+           
+             
+            <p class="copyright-item">
+                    <span>Link:</span>
+                    <a href=https://Yfei1104.github.io/2020/leetcode-1/>https://Yfei1104.github.io/2020/leetcode-1/</span>
+            </p>
+            
+            
+    </div>
+
+  
+    <div class="post-tags">
+        
+            <section>
+            <i class="iconfont icon-tag"></i>Tag(s): 
+            
+            <span class="tag"><a href="https://Yfei1104.github.io/tags/leetcode/">
+                    #leetcode</a></span>
+            
+            </section>
+        
+        <section>
+                <a href="javascript:window.history.back();">back</a></span> · 
+                <span><a href="https://Yfei1104.github.io">home</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav">
+        
+        <a href="https://Yfei1104.github.io/2020/go-1/" class="prev" rel="prev" title="golang获取文件的大小"><i class="iconfont icon-left"></i>&nbsp;golang获取文件的大小</a>
+         
+        
+    </div>
+
+    <div class="post-comment">
+          
+                 
+          
+    </div>
+</article>
+          </div>
+		   </main>
+      <footer class="footer">
+    <div class="copyright">
+        &copy;
+        
+        <span itemprop="copyrightYear">2020 - 2020</span>
+        
+        <span class="with-love">
+    	 <i class="iconfont icon-love"></i> 
+         </span>
+         
+            <span class="author" itemprop="copyrightHolder"><a href="https://Yfei1104.github.io">Yfei</a> | </span> 
+         
+
+         
+		  <span>Powered by <a href="https://gohugo.io/" target="_blank" rel="external nofollow">Hugo</a> & <a href="https://github.com/liuzc/leaveit" target="_blank" rel="external nofollow">LeaveIt</a></span> 
+    </div>
+</footer>
+
+
+
+
+
+
+
+
+
+
+
+
+    
+    
+    <script src="/js/vendor_no_gallery.min.js" async=""></script>
+    
+  
+
+
+
+     </div>
+  </body>
+</html>

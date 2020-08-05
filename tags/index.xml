@@ -6,10 +6,19 @@
     <description>Recent content in Tags on miss you</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Mon, 03 Aug 2020 15:59:15 +0800</lastBuildDate>
+    <lastBuildDate>Tue, 04 Aug 2020 14:16:35 +0800</lastBuildDate>
     
 	<atom:link href="https://Yfei1104.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>golang</title>
+      <link>https://Yfei1104.github.io/tags/golang/</link>
+      <pubDate>Tue, 04 Aug 2020 14:16:35 +0800</pubDate>
+      
+      <guid>https://Yfei1104.github.io/tags/golang/</guid>
+      <description></description>
+    </item>
     
     <item>
       <title>leetcode</title>
@@ -17,15 +26,6 @@
       <pubDate>Mon, 03 Aug 2020 15:59:15 +0800</pubDate>
       
       <guid>https://Yfei1104.github.io/tags/leetcode/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>golang</title>
-      <link>https://Yfei1104.github.io/tags/golang/</link>
-      <pubDate>Sat, 01 Aug 2020 21:16:53 +0800</pubDate>
-      
-      <guid>https://Yfei1104.github.io/tags/golang/</guid>
       <description></description>
     </item>
     

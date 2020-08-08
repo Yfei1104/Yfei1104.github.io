@@ -6,17 +6,37 @@
     <description>Recent content in golang on miss you</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Tue, 04 Aug 2020 14:16:35 +0800</lastBuildDate>
+    <lastBuildDate>Sat, 08 Aug 2020 10:26:52 +0800</lastBuildDate>
     
 	<atom:link href="https://Yfei1104.github.io/tags/golang/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
+      <title>golang-library-cache2go</title>
+      <link>https://Yfei1104.github.io/2020/go-caches2g0/</link>
+      <pubDate>Sat, 08 Aug 2020 10:26:52 +0800</pubDate>
+      
+      <guid>https://Yfei1104.github.io/2020/go-caches2g0/</guid>
+      <description>今天学习比较容易上手的开源缓存库cache2go。
+cache2go  此开源库的作者是这样介绍cache2go的
+Concurrency-safe golang caching library with expiration capabilities. cache2go是一个保证并发安全的并带有过期控制功能的缓存库 它是一个用go实现并发安全的缓存库，实现了以下的特征：
+  并发安全
+  可设置每条缓存的超时时间
+  内置了缓存访问计数
+  自调节的缓存过期检查
+  缓存的回调函数
+  &amp;hellip;
+  库的核心代码就三个文件，主要的技术包括锁机制、goroutine、map操作等等，很适合初学者学习。
+源码解析  cache2go中主要涉及到两个类型cacheitem、cachetable。
+ 一个cacheitem代表了一条缓存 一个cachetable代表了一个缓存表，由一条条缓存组成  cacheitem  type CacheItem struct { sync.RWMutex // The item&amp;#39;s key. 	key interface{} // The item&amp;#39;s data. 	data interface{} // How long will the item live in the cache when not being accessed/kept alive.</description>
+    </item>
+    
+    <item>
       <title>golang-调度器</title>
-      <link>https://Yfei1104.github.io/2020/go-2/</link>
+      <link>https://Yfei1104.github.io/2020/go-scheduler/</link>
       <pubDate>Tue, 04 Aug 2020 14:16:35 +0800</pubDate>
       
-      <guid>https://Yfei1104.github.io/2020/go-2/</guid>
+      <guid>https://Yfei1104.github.io/2020/go-scheduler/</guid>
       <description>goroutine是go语言原生支持并发的表现形式。编写的go代码无一例外都是在goroutine中运行的。你可以启动许多甚至成千上万个的goroutine，go的runtime就是负责对goroutine进行调度，决定哪个goroutine获取资源，哪个goroutine让出资源等等。适当了解一下goroutine的调度模型和原理，对于编写出更好的go代码是大有裨益的。
 当我们提起go语言调度器，就绕不开操作系统、进程、线程这些概念。线程是操作系统调度时的最基本单元，，在不同的操作系统上进程和线程有不同的实现，比如linux系统调度器就不区分进程和线程的调度，但是绝大部分的实现中线程都是属于进程的。
 未完待续。。。
@@ -29,10 +49,10 @@ https://www.jianshu.com/p/d5c48704c2f9</description>
     
     <item>
       <title>golang-获取文件的大小</title>
-      <link>https://Yfei1104.github.io/2020/go-1/</link>
+      <link>https://Yfei1104.github.io/2020/go-filesize/</link>
       <pubDate>Sat, 01 Aug 2020 21:16:53 +0800</pubDate>
       
-      <guid>https://Yfei1104.github.io/2020/go-1/</guid>
+      <guid>https://Yfei1104.github.io/2020/go-filesize/</guid>
       <description>在go语言中，我们有很多方法获取一个文件的大小。
 Read字节方式  第一种，当然是最常见的read()方法，也就是打开文件，把文件读一遍
 func main() { file, err := os.open(&amp;#34;filename&amp;#34;) if err == nil { sum := 0 buf := make([]byte, 1024) for { n, err := file.read(buf) sum += n if err == io.EOF { break } } fmt.Println(&amp;#34;file size is &amp;#34;, sum) } } 这种方式需要打开文件，通过for循环反复的读取文件里面的内容，然后去计算文件的大小。效率低，代码量大。

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>golang-library on miss you</title>
+    <link>https://Yfei1104.github.io/categories/golang-library/</link>
+    <description>Recent content in golang-library on miss you</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sat, 08 Aug 2020 10:26:52 +0800</lastBuildDate>
+    
+	<atom:link href="https://Yfei1104.github.io/categories/golang-library/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>golang-cache2go</title>
+      <link>https://Yfei1104.github.io/2020/go-library-caches2g0/</link>
+      <pubDate>Sat, 08 Aug 2020 10:26:52 +0800</pubDate>
+      
+      <guid>https://Yfei1104.github.io/2020/go-library-caches2g0/</guid>
+      <description>今天学习比较容易上手的开源缓存库cache2go。
+cache2go  此开源库的作者是这样介绍cache2go的
+Concurrency-safe golang caching library with expiration capabilities. cache2go是一个保证并发安全的并带有过期控制功能的缓存库 它是一个用go实现并发安全的缓存库，实现了以下的特征：
+  并发安全
+  可设置每条缓存的超时时间
+  内置了缓存访问计数
+  自调节的缓存过期检查
+  缓存的回调函数
+  &amp;hellip;
+  库的核心代码就三个文件，主要的技术包括锁机制、goroutine、map操作等等，很适合初学者学习。
+源码解析  cache2go中主要涉及到两个类型cacheitem、cachetable。
+ 一个cacheitem代表了一条缓存 一个cachetable代表了一个缓存表，由一条条缓存组成  cacheitem  type CacheItem struct { sync.RWMutex // The item&amp;#39;s key. 	key interface{} // The item&amp;#39;s data. 	data interface{} // How long will the item live in the cache when not being accessed/kept alive.</description>
+    </item>
+    
+  </channel>
+</rss>

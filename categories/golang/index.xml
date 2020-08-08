@@ -13,10 +13,10 @@
     
     <item>
       <title>golang-library-cache2go</title>
-      <link>https://Yfei1104.github.io/2020/go-caches2g0/</link>
+      <link>https://Yfei1104.github.io/2020/go-library-caches2g0/</link>
       <pubDate>Sat, 08 Aug 2020 10:26:52 +0800</pubDate>
       
-      <guid>https://Yfei1104.github.io/2020/go-caches2g0/</guid>
+      <guid>https://Yfei1104.github.io/2020/go-library-caches2g0/</guid>
       <description>今天学习比较容易上手的开源缓存库cache2go。
 cache2go  此开源库的作者是这样介绍cache2go的
 Concurrency-safe golang caching library with expiration capabilities. cache2go是一个保证并发安全的并带有过期控制功能的缓存库 它是一个用go实现并发安全的缓存库，实现了以下的特征：

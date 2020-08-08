@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+  <meta http-equiv="content-type" content="text/html;charset=utf-8">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noodp"/>
+  <meta name="author" content="Yfei">
+  
+  
+  
+  <link rel="prev" href="https://Yfei1104.github.io/2020/leetcode-2/" />
+  
+  <link rel="canonical" href="https://Yfei1104.github.io/2020/go-library-caches2g0/" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+  <meta name="msapplication-TileColor" content="#da532c">
+  <meta name="theme-color" content="#ffffff">
+  <title>
+       
+       
+           golang-library-cache2go | miss you
+       
+  </title>
+  <meta name="title" content="golang-library-cache2go | miss you">
+    
+  
+  <link rel="stylesheet" href="/font/iconfont.css">
+  <link rel="stylesheet" href="/css/main.min.css">
+
+
+  
+  
+ 
+
+<script type="application/ld+json">
+ "@context" : "http://schema.org",
+    "@type" : "BlogPosting",
+    "mainEntityOfPage": {
+         "@type": "WebPage",
+         "@id": "https:\/\/Yfei1104.github.io"
+    },
+    "articleSection" : "posts",
+    "name" : "golang-library-cache2go",
+    "headline" : "golang-library-cache2go",
+    "description" : "今天学习比较容易上手的开源缓存库cache2go。\ncache2go  此开源库的作者是这样介绍cache2go的\nConcurrency-safe golang caching library with expiration capabilities. cache2go是一个保证并发安全的并带有过期控制功能的缓存库 它是一个用go实现并发安全的缓存库，实现了以下的特征：\n  并发安全\n  可设置每条缓存的超时时间\n  内置了缓存访问计数\n  自调节的缓存过期检查\n  缓存的回调函数\n  \u0026hellip;\n  库的核心代码就三个文件，主要的技术包括锁机制、goroutine、map操作等等，很适合初学者学习。\n源码解析  cache2go中主要涉及到两个类型cacheitem、cachetable。\n 一个cacheitem代表了一条缓存 一个cachetable代表了一个缓存表，由一条条缓存组成  cacheitem  type CacheItem struct { sync.RWMutex \/\/ The item\u0026#39;s key. \tkey interface{} \/\/ The item\u0026#39;s data. \tdata interface{} \/\/ How long will the item live in the cache when not being accessed\/kept alive.",
+    "inLanguage" : "en-us",
+    "author" : "Yfei",
+    "creator" : "Yfei",
+    "publisher": "Yfei",
+    "accountablePerson" : "Yfei",
+    "copyrightHolder" : "Yfei",
+    "copyrightYear" : "2020",
+    "datePublished": "2020-08-08 10:26:52 \u002b0800 CST",
+    "dateModified" : "2020-08-08 10:26:52 \u002b0800 CST",
+    "url" : "https:\/\/Yfei1104.github.io\/2020\/go-library-caches2g0\/",
+    "wordCount" : "283",
+    "keywords" : [ "golang", "miss you"]
+}
+</script>
+
+</head>
+
+  
+
+
+  <body class="">
+    <div class="wrapper">
+        <nav class="navbar">
+    <div class="container">
+        <div class="navbar-header header-logo">
+        	<a href="javascript:void(0);" class="theme-switch"><i class="iconfont icon-xihuan"></i></a>&nbsp;<a href="https://Yfei1104.github.io">miss you</a>
+        </div>
+        <div class="menu navbar-right">
+                
+                
+                <a class="menu-item" href="/posts/" title="">Blog</a>
+                
+                <a class="menu-item" href="/categories/" title="">Categories</a>
+                
+                <a class="menu-item" href="/tags/" title="">Tags</a>
+                
+                <a class="menu-item" href="/about/" title="">About</a>
+                
+        </div>
+    </div>
+</nav>
+<nav class="navbar-mobile" id="nav-mobile" style="display: none">
+     <div class="container">
+        <div class="navbar-header">
+            <div>  <a href="javascript:void(0);" class="theme-switch"><i class="iconfont icon-xihuan"></i></a>&nbsp;<a href="https://Yfei1104.github.io">miss you</a></div>
+            <div class="menu-toggle">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+     
+          <div class="menu" id="mobile-menu">
+                
+                
+                <a class="menu-item" href="/posts/" title="">Blog</a>
+                
+                <a class="menu-item" href="/categories/" title="">Categories</a>
+                
+                <a class="menu-item" href="/tags/" title="">Tags</a>
+                
+                <a class="menu-item" href="/about/" title="">About</a>
+                
+        </div>
+    </div>
+</nav>
+    	 <main class="main">
+          <div class="container">
+      		
+<article class="post-warp" itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">golang-library-cache2go</h1>
+        <div class="post-meta">
+                Written by <a itemprop="name" href="https://Yfei1104.github.io" rel="author">Yfei</a> with ♥ 
+                <span class="post-time">
+                on <time datetime=2020-08-08 itemprop="datePublished">August 8, 2020</time>
+                </span>
+                in
+                <i class="iconfont icon-folder"></i>
+                <span class="post-category">
+                        <a href="https://Yfei1104.github.io/categories/golang/"> golang </a>
+                        
+                </span>
+        </div>
+    </header>
+    <div class="post-content">
+        
+
+        
+
+        
+        
+     
+          
+          
+          
+
+          
+          
+          
+
+          <p>今天学习比较容易上手的开源缓存库cache2go。</p>
+<h2 id="cache2go">cache2go</h2>
+<hr>
+<p>此开源库的作者是这样介绍cache2go的</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#a6e22e">Concurrency</span><span style="color:#f92672">-</span><span style="color:#a6e22e">safe</span> <span style="color:#a6e22e">golang</span> <span style="color:#a6e22e">caching</span> <span style="color:#a6e22e">library</span> <span style="color:#a6e22e">with</span> <span style="color:#a6e22e">expiration</span> <span style="color:#a6e22e">capabilities</span>.
+<span style="color:#a6e22e">cache2go是一个保证并发安全的并带有过期控制功能的缓存库</span>
+</code></pre></div><p>它是一个用go实现并发安全的缓存库，实现了以下的特征：</p>
+<ul>
+<li>
+<p>并发安全</p>
+</li>
+<li>
+<p>可设置每条缓存的超时时间</p>
+</li>
+<li>
+<p>内置了缓存访问计数</p>
+</li>
+<li>
+<p>自调节的缓存过期检查</p>
+</li>
+<li>
+<p>缓存的回调函数</p>
+</li>
+<li>
+<p>&hellip;</p>
+</li>
+</ul>
+<p>库的核心代码就三个文件，主要的技术包括锁机制、goroutine、map操作等等，很适合初学者学习。</p>
+<h2 id="源码解析">源码解析</h2>
+<hr>
+<p>cache2go中主要涉及到两个类型cacheitem、cachetable。</p>
+<ul>
+<li>一个cacheitem代表了一条缓存</li>
+<li>一个cachetable代表了一个缓存表，由一条条缓存组成</li>
+</ul>
+<h3 id="cacheitem">cacheitem</h3>
+<hr>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">CacheItem</span> <span style="color:#66d9ef">struct</span> {
+	<span style="color:#a6e22e">sync</span>.<span style="color:#a6e22e">RWMutex</span>
+
+	<span style="color:#75715e">// The item&#39;s key.
+</span><span style="color:#75715e"></span>	<span style="color:#a6e22e">key</span> <span style="color:#66d9ef">interface</span>{}
+	<span style="color:#75715e">// The item&#39;s data.
+</span><span style="color:#75715e"></span>	<span style="color:#a6e22e">data</span> <span style="color:#66d9ef">interface</span>{}
+	<span style="color:#75715e">// How long will the item live in the cache when not being accessed/kept alive.
+</span><span style="color:#75715e"></span>	<span style="color:#a6e22e">lifeSpan</span> <span style="color:#a6e22e">time</span>.<span style="color:#a6e22e">Duration</span>
+
+	<span style="color:#75715e">// Creation timestamp.
+</span><span style="color:#75715e"></span>	<span style="color:#a6e22e">createdOn</span> <span style="color:#a6e22e">time</span>.<span style="color:#a6e22e">Time</span>
+	<span style="color:#75715e">// Last access timestamp.
+</span><span style="color:#75715e"></span>	<span style="color:#a6e22e">accessedOn</span> <span style="color:#a6e22e">time</span>.<span style="color:#a6e22e">Time</span>
+	<span style="color:#75715e">// How often the item was accessed.
+</span><span style="color:#75715e"></span>	<span style="color:#a6e22e">accessCount</span> <span style="color:#66d9ef">int64</span>
+
+	<span style="color:#75715e">// Callback method triggered right before removing the item from the cache
+</span><span style="color:#75715e"></span>	<span style="color:#a6e22e">aboutToExpire</span> []<span style="color:#66d9ef">func</span>(<span style="color:#a6e22e">key</span> <span style="color:#66d9ef">interface</span>{})
+}
+</code></pre></div><p>从结构体中，我们可以看到：</p>
+<ul>
+<li>缓存的key和data都是interface{}类型的，也就是说可以是任意类型的，当然作为map的key，必须是可比较类型的</li>
+<li>lifespan设置了缓存的生命周期</li>
+<li>createdOn、accessedOn、accessCount分别表示了创建的时间、最近一次访问时间、被访问的次数</li>
+<li>同时也可以设置缓存被删除时的回调函数，该函数将在被删除之前执行</li>
+<li>cacheitem也定义了一些常用的方法，比如创建缓存对象、重新设置缓存访问时间、重新设置回调函数、添加回调函数、删除回调函数等等</li>
+</ul>
+<h3 id="cachetable">cachetable</h3>
+<hr>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">CacheTable</span> <span style="color:#66d9ef">struct</span> {
+	<span style="color:#a6e22e">sync</span>.<span style="color:#a6e22e">RWMutex</span>
+
+	<span style="color:#75715e">// The table&#39;s name.
+</span><span style="color:#75715e"></span>	<span style="color:#a6e22e">name</span> <span style="color:#66d9ef">string</span>
+	<span style="color:#75715e">// All cached items.
+</span><span style="color:#75715e"></span>	<span style="color:#a6e22e">items</span> <span style="color:#66d9ef">map</span>[<span style="color:#66d9ef">interface</span>{}]<span style="color:#f92672">*</span><span style="color:#a6e22e">CacheItem</span>
+
+	<span style="color:#75715e">// Timer responsible for triggering cleanup.
+</span><span style="color:#75715e"></span>	<span style="color:#a6e22e">cleanupTimer</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">time</span>.<span style="color:#a6e22e">Timer</span>
+	<span style="color:#75715e">// Current timer duration.
+</span><span style="color:#75715e"></span>	<span style="color:#a6e22e">cleanupInterval</span> <span style="color:#a6e22e">time</span>.<span style="color:#a6e22e">Duration</span>
+
+	<span style="color:#75715e">// The logger used for this table.
+</span><span style="color:#75715e"></span>	<span style="color:#a6e22e">logger</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">log</span>.<span style="color:#a6e22e">Logger</span>
+
+	<span style="color:#75715e">// Callback method triggered when trying to load a non-existing key.
+</span><span style="color:#75715e"></span>	<span style="color:#a6e22e">loadData</span> <span style="color:#66d9ef">func</span>(<span style="color:#a6e22e">key</span> <span style="color:#66d9ef">interface</span>{}, <span style="color:#a6e22e">args</span> <span style="color:#f92672">...</span><span style="color:#66d9ef">interface</span>{}) <span style="color:#f92672">*</span><span style="color:#a6e22e">CacheItem</span>
+	<span style="color:#75715e">// Callback method triggered when adding a new item to the cache.
+</span><span style="color:#75715e"></span>	<span style="color:#a6e22e">addedItem</span> []<span style="color:#66d9ef">func</span>(<span style="color:#a6e22e">item</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">CacheItem</span>)
+	<span style="color:#75715e">// Callback method triggered before deleting an item from the cache.
+</span><span style="color:#75715e"></span>	<span style="color:#a6e22e">aboutToDeleteItem</span> []<span style="color:#66d9ef">func</span>(<span style="color:#a6e22e">item</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">CacheItem</span>)
+}
+</code></pre></div><p>从结构体中可以看出缓存表就是一个值的类型为缓存项的map和一些附加的属性组成：</p>
+<ul>
+<li>name作为缓存表的唯一标识，items放的是值为cacheitem的map集合</li>
+<li>clearTimer和clean Interval控制缓存的过期检查</li>
+<li>loadData回调函数会在调用<code>value()</code>时触发，即没有找到某个key的缓存且我们设置了dataloader回调的时候就会执行该函数。就比如我我们缓存了数据库中的一些用户信息，如果我们设置了dataloader回调，在没有找到某个用户的时候，就会从数据库中读取用户信息并自动添加到缓存里面。</li>
+<li>addItem和aboutToDeleteItem会在添加和删除item之前回调</li>
+</ul>
+<p>cache2go的作者们，根据这两个struct分别开放了许多<code>getter&amp;setter</code>方法，使用者只需调用即可，代码实现过程中也有对用户是否设置过属性进行判断，来确保程序的健壮性。</p>
+<h4 id="logger自定义">logger自定义</h4>
+<hr>
+<p>cachetable中包含了logger字段，并且编写了<code>SetLogger(logger)</code>来让用户实现logger打印，并实现了log(v&hellip;)方法，让用户可选实现SetLogger(logger)，如果用户不想打印日志，那么不需要调用<code>SetLogger(logger)</code>。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">table</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">CacheTable</span>) <span style="color:#a6e22e">SetLogger</span>(<span style="color:#a6e22e">logger</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">log</span>.<span style="color:#a6e22e">Logger</span>) {
+	<span style="color:#a6e22e">table</span>.<span style="color:#a6e22e">Lock</span>()
+	<span style="color:#66d9ef">defer</span> <span style="color:#a6e22e">table</span>.<span style="color:#a6e22e">Unlock</span>()
+	<span style="color:#a6e22e">table</span>.<span style="color:#a6e22e">logger</span> = <span style="color:#a6e22e">logger</span>
+}
+
+<span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">table</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">CacheTable</span>) <span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">v</span> <span style="color:#f92672">...</span><span style="color:#66d9ef">interface</span>{}) {
+	<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">table</span>.<span style="color:#a6e22e">logger</span> <span style="color:#f92672">==</span> <span style="color:#66d9ef">nil</span> {
+		<span style="color:#66d9ef">return</span>
+	}
+
+	<span style="color:#a6e22e">table</span>.<span style="color:#a6e22e">logger</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">v</span><span style="color:#f92672">...</span>)
+}
+</code></pre></div><h4 id="创建一个表">创建一个表</h4>
+<hr>
+<p>通过<code>cache.go</code>文件里的<code>Cache()</code>函数实现创建，内部通过map实现，通过tablename关键字在map中找，如果找到直接返回，反之，先创建一个空的缓存表并返回。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">var</span> (
+	<span style="color:#a6e22e">cache</span> = make(<span style="color:#66d9ef">map</span>[<span style="color:#66d9ef">string</span>]<span style="color:#f92672">*</span><span style="color:#a6e22e">CacheTable</span>)
+	<span style="color:#a6e22e">mutex</span> <span style="color:#a6e22e">sync</span>.<span style="color:#a6e22e">RWMutex</span>
+)
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">Cache</span>(<span style="color:#a6e22e">table</span> <span style="color:#66d9ef">string</span>) <span style="color:#f92672">*</span><span style="color:#a6e22e">CacheTable</span> {
+	<span style="color:#a6e22e">mutex</span>.<span style="color:#a6e22e">RLock</span>()
+	<span style="color:#a6e22e">t</span>, <span style="color:#a6e22e">ok</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">cache</span>[<span style="color:#a6e22e">table</span>]
+	<span style="color:#a6e22e">mutex</span>.<span style="color:#a6e22e">RUnlock</span>()
+
+	<span style="color:#66d9ef">if</span> !<span style="color:#a6e22e">ok</span> {
+		<span style="color:#a6e22e">mutex</span>.<span style="color:#a6e22e">Lock</span>()
+		<span style="color:#a6e22e">t</span>, <span style="color:#a6e22e">ok</span> = <span style="color:#a6e22e">cache</span>[<span style="color:#a6e22e">table</span>]
+		<span style="color:#75715e">// Double check whether the table exists or not.
+</span><span style="color:#75715e"></span>		<span style="color:#66d9ef">if</span> !<span style="color:#a6e22e">ok</span> {
+			<span style="color:#a6e22e">t</span> = <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">CacheTable</span>{
+				<span style="color:#a6e22e">name</span>:  <span style="color:#a6e22e">table</span>,
+				<span style="color:#a6e22e">items</span>: make(<span style="color:#66d9ef">map</span>[<span style="color:#66d9ef">interface</span>{}]<span style="color:#f92672">*</span><span style="color:#a6e22e">CacheItem</span>),
+			}
+			<span style="color:#a6e22e">cache</span>[<span style="color:#a6e22e">table</span>] = <span style="color:#a6e22e">t</span>
+		}
+		<span style="color:#a6e22e">mutex</span>.<span style="color:#a6e22e">Unlock</span>()
+	}
+
+	<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">t</span>
+}
+</code></pre></div>
+    </div>
+
+    <div class="post-copyright">
+             
+            <p class="copyright-item">
+                <span>Author:</span>
+                <span>Yfei </span>
+                </p>
+            
+           
+             
+            <p class="copyright-item">
+                    <span>Link:</span>
+                    <a href=https://Yfei1104.github.io/2020/go-library-caches2g0/>https://Yfei1104.github.io/2020/go-library-caches2g0/</span>
+            </p>
+            
+            
+    </div>
+
+  
+    <div class="post-tags">
+        
+            <section>
+            <i class="iconfont icon-tag"></i>Tag(s): 
+            
+            <span class="tag"><a href="https://Yfei1104.github.io/tags/golang/">
+                    #golang</a></span>
+            
+            </section>
+        
+        <section>
+                <a href="javascript:window.history.back();">back</a></span> · 
+                <span><a href="https://Yfei1104.github.io">home</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav">
+        
+        <a href="https://Yfei1104.github.io/2020/leetcode-2/" class="prev" rel="prev" title="leetcode-双指针-2"><i class="iconfont icon-left"></i>&nbsp;leetcode-双指针-2</a>
+         
+        
+    </div>
+
+    <div class="post-comment">
+          
+                 
+          
+    </div>
+</article>
+          </div>
+		   </main>
+      <footer class="footer">
+    <div class="copyright">
+        &copy;
+        
+        <span itemprop="copyrightYear">2020 - 2020</span>
+        
+        <span class="with-love">
+    	 <i class="iconfont icon-love"></i> 
+         </span>
+         
+            <span class="author" itemprop="copyrightHolder"><a href="https://Yfei1104.github.io">Yfei</a> | </span> 
+         
+
+         
+		  <span>Powered by <a href="https://gohugo.io/" target="_blank" rel="external nofollow">Hugo</a> & <a href="https://github.com/liuzc/leaveit" target="_blank" rel="external nofollow">LeaveIt</a></span> 
+    </div>
+</footer>
+
+
+
+
+
+
+
+
+
+
+
+
+    
+    
+    <script src="/js/vendor_no_gallery.min.js" async=""></script>
+    
+  
+
+
+
+     </div>
+  </body>
+</html>

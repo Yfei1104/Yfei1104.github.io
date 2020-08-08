@@ -6,17 +6,28 @@
     <description>Recent content in Posts on miss you</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sat, 08 Aug 2020 10:26:52 +0800</lastBuildDate>
+    <lastBuildDate>Sat, 08 Aug 2020 17:22:57 +0800</lastBuildDate>
     
 	<atom:link href="https://Yfei1104.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
+      <title>golang-cache2go-2</title>
+      <link>https://Yfei1104.github.io/2020/go-library-cache2go-2/</link>
+      <pubDate>Sat, 08 Aug 2020 17:22:57 +0800</pubDate>
+      
+      <guid>https://Yfei1104.github.io/2020/go-library-cache2go-2/</guid>
+      <description>上次我们介绍了cache2go缓存库的两种类型和其中的一些方法的实现，今天我们接着继续详细介绍cachetable类型提供的一些方法的实现。
+缓存表提供了缓存常见的方法：
+ 增：Add，NotFoundAdd 删：Delete 查：Value 过期检查：expirationCheck 缓存刷新：Flush 缓存遍历：Foreach 回调函数设置：SetAboutToDeleteItemCallback，SetAddedItemCallback，SetDataLoader 访问最多的前几个缓存项：MostAccessed &amp;hellip;  添加缓存   首先通过NewCacheItem(key, lifeSpan, value)来完成CacheItem的初始化 接下里需要通过调用自身的addInternal(cacheItem)将cacheItem添加到cacheTable中，并且开始检查是否有过期缓存 addInternal()方法要在加锁之后才能调用，并且在执行callback之前不能解除锁  func (table *CacheTable) addInternal(item *CacheItem) { // 要在加锁之后才能调用该方法，并且在执行callback之前不能解除锁  ... table.items[item.key] = item expDur := table.cleanupInterval addedItem := table.addedItem table.Unlock() // 添加item的回调函数 	if addedItem != nil { for _, callback := range addedItem { callback(item) } } // lifespan小于清除间隔时就要执行过期检查，重设cleanupInterval 	if item.lifeSpan &amp;gt; 0 &amp;amp;&amp;amp; (expDur == 0 || item.</description>
+    </item>
+    
+    <item>
       <title>golang-cache2go-1</title>
-      <link>https://Yfei1104.github.io/2020/go-library-caches2g0/</link>
+      <link>https://Yfei1104.github.io/2020/go-library-caches2go-1/</link>
       <pubDate>Sat, 08 Aug 2020 10:26:52 +0800</pubDate>
       
-      <guid>https://Yfei1104.github.io/2020/go-library-caches2g0/</guid>
+      <guid>https://Yfei1104.github.io/2020/go-library-caches2go-1/</guid>
       <description>今天学习比较容易上手的开源缓存库cache2go。
 cache2go  此开源库的作者是这样介绍cache2go的
 Concurrency-safe golang caching library with expiration capabilities. cache2go是一个保证并发安全的并带有过期控制功能的缓存库 它是一个用go实现并发安全的缓存库，实现了以下的特征：
@@ -33,16 +44,16 @@ Concurrency-safe golang caching library with expiration capabilities. cache2go�
     
     <item>
       <title>leetcode-双指针-2</title>
-      <link>https://Yfei1104.github.io/2020/leetcode-2/</link>
+      <link>https://Yfei1104.github.io/2020/leetcode-%E5%8F%8C%E6%8C%87%E9%92%88-2/</link>
       <pubDate>Fri, 07 Aug 2020 20:22:30 +0800</pubDate>
       
-      <guid>https://Yfei1104.github.io/2020/leetcode-2/</guid>
+      <guid>https://Yfei1104.github.io/2020/leetcode-%E5%8F%8C%E6%8C%87%E9%92%88-2/</guid>
       <description>leetcode 88. 合并两个有序数组  题目描述：给你两个有序整数数组 nums1 和 nums2，请你将 nums2 合并到 nums1 中，使 nums1 成为一个有序数组。
   从后往前遍历两个数组，当能同时遍历到数的时候就比较两个数的大小。添加位置从num1数组的num1.size() + nums2.size() - 1开始往前。 当无法同时获取两个数时，就看看num2数组还有没有数，有的话就添加到nums1中。  class Solution { public: void merge(vector&amp;lt;int&amp;gt;&amp;amp; nums1, int m, vector&amp;lt;int&amp;gt;&amp;amp; nums2, int n) { int i = m - 1, j = n - 1, k = m + n - 1; while (i &amp;gt;= 0 &amp;amp;&amp;amp; j &amp;gt;= 0) if (nums1[i] &amp;gt;= nums2[j])	nums1[k--] = nums1[i--]; else	nums1[k--] = nums2[j--]; while (j &amp;gt;= 0)	nums1[k--] = nums2[j--]; } }; 时间复杂度：O(m + n)</description>
     </item>
     
     <item>
-      <title>golang-调度器</title>
+      <title>golang-scheduler</title>
       <link>https://Yfei1104.github.io/2020/go-scheduler/</link>
       <pubDate>Tue, 04 Aug 2020 14:16:35 +0800</pubDate>
       
@@ -59,10 +70,10 @@ https://www.jianshu.com/p/d5c48704c2f9</description>
     
     <item>
       <title>leetcode-双指针-1</title>
-      <link>https://Yfei1104.github.io/2020/leetcode-1/</link>
+      <link>https://Yfei1104.github.io/2020/leetcode-%E5%8F%8C%E6%8C%87%E9%92%88-1/</link>
       <pubDate>Mon, 03 Aug 2020 15:59:15 +0800</pubDate>
       
-      <guid>https://Yfei1104.github.io/2020/leetcode-1/</guid>
+      <guid>https://Yfei1104.github.io/2020/leetcode-%E5%8F%8C%E6%8C%87%E9%92%88-1/</guid>
       <description>leetcode 167. 两数之和 II - 输入有序数组  题目描述：给定一个已按照升序排列 的有序数组，找到两个数使得它们相加之和等于目标数。
 函数应该返回这两个下标值 index1 和 index2，其中 index1 必须小于 index2。
  方法一：二分查找 在数组中找到两个数之和等于目标值，可以先固定一个数，然后利用有序数组的性质，二分查找第二个数。为了避免重复，第二个数只能从第一个数右侧找。

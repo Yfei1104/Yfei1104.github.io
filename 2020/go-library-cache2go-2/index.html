@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+  <meta http-equiv="content-type" content="text/html;charset=utf-8">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noodp"/>
+  <meta name="author" content="Yfei">
+  
+  
+  
+  <link rel="prev" href="https://Yfei1104.github.io/2020/go-library-caches2go-1/" />
+  
+  <link rel="canonical" href="https://Yfei1104.github.io/2020/go-library-cache2go-2/" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+  <meta name="msapplication-TileColor" content="#da532c">
+  <meta name="theme-color" content="#ffffff">
+  <title>
+       
+       
+           golang-cache2go-2 | miss you
+       
+  </title>
+  <meta name="title" content="golang-cache2go-2 | miss you">
+    
+  
+  <link rel="stylesheet" href="/font/iconfont.css">
+  <link rel="stylesheet" href="/css/main.min.css">
+
+
+  
+  
+ 
+
+<script type="application/ld+json">
+ "@context" : "http://schema.org",
+    "@type" : "BlogPosting",
+    "mainEntityOfPage": {
+         "@type": "WebPage",
+         "@id": "https:\/\/Yfei1104.github.io"
+    },
+    "articleSection" : "posts",
+    "name" : "golang-cache2go-2",
+    "headline" : "golang-cache2go-2",
+    "description" : "上次我们介绍了cache2go缓存库的两种类型和其中的一些方法的实现，今天我们接着继续详细介绍cachetable类型提供的一些方法的实现。\n缓存表提供了缓存常见的方法：\n 增：Add，NotFoundAdd 删：Delete 查：Value 过期检查：expirationCheck 缓存刷新：Flush 缓存遍历：Foreach 回调函数设置：SetAboutToDeleteItemCallback，SetAddedItemCallback，SetDataLoader 访问最多的前几个缓存项：MostAccessed \u0026hellip;  添加缓存   首先通过NewCacheItem(key, lifeSpan, value)来完成CacheItem的初始化 接下里需要通过调用自身的addInternal(cacheItem)将cacheItem添加到cacheTable中，并且开始检查是否有过期缓存 addInternal()方法要在加锁之后才能调用，并且在执行callback之前不能解除锁  func (table *CacheTable) addInternal(item *CacheItem) { \/\/ 要在加锁之后才能调用该方法，并且在执行callback之前不能解除锁  ... table.items[item.key] = item expDur := table.cleanupInterval addedItem := table.addedItem table.Unlock() \/\/ 添加item的回调函数 \tif addedItem != nil { for _, callback := range addedItem { callback(item) } } \/\/ lifespan小于清除间隔时就要执行过期检查，重设cleanupInterval \tif item.lifeSpan \u0026gt; 0 \u0026amp;\u0026amp; (expDur == 0 || item.",
+    "inLanguage" : "en-us",
+    "author" : "Yfei",
+    "creator" : "Yfei",
+    "publisher": "Yfei",
+    "accountablePerson" : "Yfei",
+    "copyrightHolder" : "Yfei",
+    "copyrightYear" : "2020",
+    "datePublished": "2020-08-08 17:22:57 \u002b0800 CST",
+    "dateModified" : "2020-08-08 17:22:57 \u002b0800 CST",
+    "url" : "https:\/\/Yfei1104.github.io\/2020\/go-library-cache2go-2\/",
+    "wordCount" : "325",
+    "keywords" : [ "golang", "miss you"]
+}
+</script>
+
+</head>
+
+  
+
+
+  <body class="">
+    <div class="wrapper">
+        <nav class="navbar">
+    <div class="container">
+        <div class="navbar-header header-logo">
+        	<a href="javascript:void(0);" class="theme-switch"><i class="iconfont icon-xihuan"></i></a>&nbsp;<a href="https://Yfei1104.github.io">miss you</a>
+        </div>
+        <div class="menu navbar-right">
+                
+                
+                <a class="menu-item" href="/posts/" title="">Blog</a>
+                
+                <a class="menu-item" href="/categories/" title="">Categories</a>
+                
+                <a class="menu-item" href="/tags/" title="">Tags</a>
+                
+                <a class="menu-item" href="/about/" title="">About</a>
+                
+        </div>
+    </div>
+</nav>
+<nav class="navbar-mobile" id="nav-mobile" style="display: none">
+     <div class="container">
+        <div class="navbar-header">
+            <div>  <a href="javascript:void(0);" class="theme-switch"><i class="iconfont icon-xihuan"></i></a>&nbsp;<a href="https://Yfei1104.github.io">miss you</a></div>
+            <div class="menu-toggle">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+     
+          <div class="menu" id="mobile-menu">
+                
+                
+                <a class="menu-item" href="/posts/" title="">Blog</a>
+                
+                <a class="menu-item" href="/categories/" title="">Categories</a>
+                
+                <a class="menu-item" href="/tags/" title="">Tags</a>
+                
+                <a class="menu-item" href="/about/" title="">About</a>
+                
+        </div>
+    </div>
+</nav>
+    	 <main class="main">
+          <div class="container">
+      		
+<article class="post-warp" itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">golang-cache2go-2</h1>
+        <div class="post-meta">
+                Written by <a itemprop="name" href="https://Yfei1104.github.io" rel="author">Yfei</a> with ♥ 
+                <span class="post-time">
+                on <time datetime=2020-08-08 itemprop="datePublished">August 8, 2020</time>
+                </span>
+                in
+                <i class="iconfont icon-folder"></i>
+                <span class="post-category">
+                        <a href="https://Yfei1104.github.io/categories/golang-library/"> golang-library </a>
+                        
+                </span>
+        </div>
+    </header>
+    <div class="post-content">
+        
+
+        
+
+        
+        
+     
+          
+          
+          
+
+          
+          
+          
+
+          <p>上次我们介绍了cache2go缓存库的两种类型和其中的一些方法的实现，今天我们接着继续详细介绍cachetable类型提供的一些方法的实现。</p>
+<p>缓存表提供了缓存常见的方法：</p>
+<ul>
+<li>增：<code>Add</code>，<code>NotFoundAdd</code></li>
+<li>删：<code>Delete</code></li>
+<li>查：<code>Value</code></li>
+<li>过期检查：<code>expirationCheck</code></li>
+<li>缓存刷新：<code>Flush</code></li>
+<li>缓存遍历：<code>Foreach</code></li>
+<li>回调函数设置：<code>SetAboutToDeleteItemCallback</code>，<code>SetAddedItemCallback</code>，<code>SetDataLoader</code></li>
+<li>访问最多的前几个缓存项：<code>MostAccessed</code></li>
+<li>&hellip;</li>
+</ul>
+<h4 id="添加缓存">添加缓存</h4>
+<hr>
+<ul>
+<li>首先通过<code>NewCacheItem(key, lifeSpan, value)</code>来完成CacheItem的初始化</li>
+<li>接下里需要通过调用自身的<code>addInternal(cacheItem)</code>将cacheItem添加到cacheTable中，并且开始检查是否有过期缓存</li>
+<li><code>addInternal()</code>方法要在加锁之后才能调用，并且在执行callback之前不能解除锁</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">table</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">CacheTable</span>) <span style="color:#a6e22e">addInternal</span>(<span style="color:#a6e22e">item</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">CacheItem</span>) {
+    <span style="color:#75715e">// 要在加锁之后才能调用该方法，并且在执行callback之前不能解除锁
+</span><span style="color:#75715e"></span>    <span style="color:#f92672">...</span>
+	<span style="color:#a6e22e">table</span>.<span style="color:#a6e22e">items</span>[<span style="color:#a6e22e">item</span>.<span style="color:#a6e22e">key</span>] = <span style="color:#a6e22e">item</span>
+
+	<span style="color:#a6e22e">expDur</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">table</span>.<span style="color:#a6e22e">cleanupInterval</span>
+	<span style="color:#a6e22e">addedItem</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">table</span>.<span style="color:#a6e22e">addedItem</span>
+	<span style="color:#a6e22e">table</span>.<span style="color:#a6e22e">Unlock</span>()
+	<span style="color:#75715e">// 添加item的回调函数
+</span><span style="color:#75715e"></span>	<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">addedItem</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
+		<span style="color:#66d9ef">for</span> <span style="color:#a6e22e">_</span>, <span style="color:#a6e22e">callback</span> <span style="color:#f92672">:=</span> <span style="color:#66d9ef">range</span> <span style="color:#a6e22e">addedItem</span> {
+			<span style="color:#a6e22e">callback</span>(<span style="color:#a6e22e">item</span>)
+		}
+	}
+	<span style="color:#75715e">// lifespan小于清除间隔时就要执行过期检查，重设cleanupInterval
+</span><span style="color:#75715e"></span>	<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">item</span>.<span style="color:#a6e22e">lifeSpan</span> &gt; <span style="color:#ae81ff">0</span> <span style="color:#f92672">&amp;&amp;</span> (<span style="color:#a6e22e">expDur</span> <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span> <span style="color:#f92672">||</span> <span style="color:#a6e22e">item</span>.<span style="color:#a6e22e">lifeSpan</span> &lt; <span style="color:#a6e22e">expDur</span>) {
+		<span style="color:#a6e22e">table</span>.<span style="color:#a6e22e">expirationCheck</span>()
+	}
+}
+
+<span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">table</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">CacheTable</span>) <span style="color:#a6e22e">Add</span>(<span style="color:#a6e22e">key</span> <span style="color:#66d9ef">interface</span>{}, <span style="color:#a6e22e">lifeSpan</span> <span style="color:#a6e22e">time</span>.<span style="color:#a6e22e">Duration</span>, <span style="color:#a6e22e">data</span> <span style="color:#66d9ef">interface</span>{}) <span style="color:#f92672">*</span><span style="color:#a6e22e">CacheItem</span> {
+	<span style="color:#a6e22e">item</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">NewCacheItem</span>(<span style="color:#a6e22e">key</span>, <span style="color:#a6e22e">lifeSpan</span>, <span style="color:#a6e22e">data</span>)
+
+	<span style="color:#a6e22e">table</span>.<span style="color:#a6e22e">Lock</span>()
+	<span style="color:#a6e22e">table</span>.<span style="color:#a6e22e">addInternal</span>(<span style="color:#a6e22e">item</span>)
+
+	<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">item</span>
+}
+</code></pre></div><h4 id="自调节的缓存过期检查">自调节的缓存过期检查</h4>
+<hr>
+<ul>
+<li>代码会去遍历所有的缓存项，找到最快的将要被删除的缓存项的时间作为<code>cleanupInterval</code>，即下一次的缓存更新时间。其本质就是开一个goroutine通过<code>time.AfterFunc()</code>函数自调节的设置下一次的启动缓存更新</li>
+<li>可以看到如果lifespan设置为0的话，item将不会被淘汰，永久有效</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">table</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">CacheTable</span>) <span style="color:#a6e22e">expirationCheck</span>() {
+	<span style="color:#f92672">...</span>
+	<span style="color:#a6e22e">now</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">time</span>.<span style="color:#a6e22e">Now</span>()
+	<span style="color:#a6e22e">smallestDuration</span> <span style="color:#f92672">:=</span> <span style="color:#ae81ff">0</span> <span style="color:#f92672">*</span> <span style="color:#a6e22e">time</span>.<span style="color:#a6e22e">Second</span>
+	<span style="color:#66d9ef">for</span> <span style="color:#a6e22e">key</span>, <span style="color:#a6e22e">item</span> <span style="color:#f92672">:=</span> <span style="color:#66d9ef">range</span> <span style="color:#a6e22e">table</span>.<span style="color:#a6e22e">items</span> {
+		<span style="color:#f92672">...</span>
+		<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">lifeSpan</span> <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span> {
+			<span style="color:#66d9ef">continue</span>
+		}
+		<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">now</span>.<span style="color:#a6e22e">Sub</span>(<span style="color:#a6e22e">accessedOn</span>) <span style="color:#f92672">&gt;=</span> <span style="color:#a6e22e">lifeSpan</span> {
+			<span style="color:#a6e22e">table</span>.<span style="color:#a6e22e">deleteInternal</span>(<span style="color:#a6e22e">key</span>)
+		} <span style="color:#66d9ef">else</span> {
+			<span style="color:#75715e">// 找到最快的将要被删除的缓存项的时间作为cleanupInterval
+</span><span style="color:#75715e"></span>			<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">smallestDuration</span> <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span> <span style="color:#f92672">||</span> <span style="color:#a6e22e">lifeSpan</span><span style="color:#f92672">-</span><span style="color:#a6e22e">now</span>.<span style="color:#a6e22e">Sub</span>(<span style="color:#a6e22e">accessedOn</span>) &lt; <span style="color:#a6e22e">smallestDuration</span> {
+				<span style="color:#a6e22e">smallestDuration</span> = <span style="color:#a6e22e">lifeSpan</span> <span style="color:#f92672">-</span> <span style="color:#a6e22e">now</span>.<span style="color:#a6e22e">Sub</span>(<span style="color:#a6e22e">accessedOn</span>)
+			}
+		}
+	}
+
+	<span style="color:#75715e">// 设置下一次的缓存时间
+</span><span style="color:#75715e"></span>	<span style="color:#a6e22e">table</span>.<span style="color:#a6e22e">cleanupInterval</span> = <span style="color:#a6e22e">smallestDuration</span>
+	<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">smallestDuration</span> &gt; <span style="color:#ae81ff">0</span> {
+		<span style="color:#a6e22e">table</span>.<span style="color:#a6e22e">cleanupTimer</span> = <span style="color:#a6e22e">time</span>.<span style="color:#a6e22e">AfterFunc</span>(<span style="color:#a6e22e">smallestDuration</span>, <span style="color:#66d9ef">func</span>() {
+			<span style="color:#66d9ef">go</span> <span style="color:#a6e22e">table</span>.<span style="color:#a6e22e">expirationCheck</span>()
+		})
+	}
+	<span style="color:#a6e22e">table</span>.<span style="color:#a6e22e">Unlock</span>()
+}
+</code></pre></div><h4 id="dataloader的回调">dataloader的回调</h4>
+<hr>
+<ul>
+<li>dataloader回调是在调用<code>Value()</code>时触发</li>
+<li>当查找某个key的缓存，如果找不到且我们设置了dataloader回调，就会执行该回调函数</li>
+<li>比如我们缓存了数据库中的一些用户信息，如果我们可以设置dataloader回调，如果从缓存里面查找某个用户信息时没有找到，就从数据库中读取该用户信息并加到缓存里面，这个动作就可以加在dataloader回调里面。</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">table</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">CacheTable</span>) <span style="color:#a6e22e">SetDataLoader</span>(<span style="color:#a6e22e">f</span> <span style="color:#66d9ef">func</span>(<span style="color:#66d9ef">interface</span>{}, <span style="color:#f92672">...</span><span style="color:#66d9ef">interface</span>{}) <span style="color:#f92672">*</span><span style="color:#a6e22e">CacheItem</span>) {
+	<span style="color:#a6e22e">table</span>.<span style="color:#a6e22e">Lock</span>()
+	<span style="color:#66d9ef">defer</span> <span style="color:#a6e22e">table</span>.<span style="color:#a6e22e">Unlock</span>()
+	<span style="color:#a6e22e">table</span>.<span style="color:#a6e22e">loadData</span> = <span style="color:#a6e22e">f</span>
+}
+
+<span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">table</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">CacheTable</span>) <span style="color:#a6e22e">Value</span>(<span style="color:#a6e22e">key</span> <span style="color:#66d9ef">interface</span>{}, <span style="color:#a6e22e">args</span> <span style="color:#f92672">...</span><span style="color:#66d9ef">interface</span>{}) (<span style="color:#f92672">*</span><span style="color:#a6e22e">CacheItem</span>, <span style="color:#66d9ef">error</span>) {
+    <span style="color:#f92672">...</span>
+	<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">ok</span> {
+		<span style="color:#75715e">// 更新最新访问时间
+</span><span style="color:#75715e"></span>		<span style="color:#a6e22e">r</span>.<span style="color:#a6e22e">KeepAlive</span>()
+		<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">r</span>, <span style="color:#66d9ef">nil</span>
+	}
+	<span style="color:#75715e">// dataloader回调添加item到缓存表中
+</span><span style="color:#75715e"></span>	<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">loadData</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
+		<span style="color:#a6e22e">item</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">loadData</span>(<span style="color:#a6e22e">key</span>, <span style="color:#a6e22e">args</span><span style="color:#f92672">...</span>)
+		<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">item</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
+			<span style="color:#a6e22e">table</span>.<span style="color:#a6e22e">Add</span>(<span style="color:#a6e22e">key</span>, <span style="color:#a6e22e">item</span>.<span style="color:#a6e22e">lifeSpan</span>, <span style="color:#a6e22e">item</span>.<span style="color:#a6e22e">data</span>)
+			<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">item</span>, <span style="color:#66d9ef">nil</span>
+		}
+		<span style="color:#66d9ef">return</span> <span style="color:#66d9ef">nil</span>, <span style="color:#a6e22e">ErrKeyNotFoundOrLoadable</span>
+	}
+	<span style="color:#66d9ef">return</span> <span style="color:#66d9ef">nil</span>, <span style="color:#a6e22e">ErrKeyNotFound</span>
+}
+</code></pre></div><h4 id="mostaccessed">MostAccessed</h4>
+<hr>
+<ul>
+<li>为了提供访问最多的前几个缓存项，cache2go定义了<code>CacheItemPair</code>和<code>CacheItemPairList</code></li>
+<li><code>CacheItemPair</code>由缓存的<code>key</code>和<code>AccessCount</code>组成，而<code>CacheItemPairList</code>则是<code>CacheItemPair</code>组成的Slice，且实现了sort包下的Interface接口的三个方法<code>Swap()</code>、<code>Len()</code>、<code>Less()</code>，调用<code>sort()</code>方法进行排序</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">CacheItemPair</span> <span style="color:#66d9ef">struct</span> {
+	<span style="color:#a6e22e">Key</span>         <span style="color:#66d9ef">interface</span>{}
+	<span style="color:#a6e22e">AccessCount</span> <span style="color:#66d9ef">int64</span>
+}
+<span style="color:#66d9ef">type</span> <span style="color:#a6e22e">CacheItemPairList</span> []<span style="color:#a6e22e">CacheItemPair</span>
+
+<span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">p</span> <span style="color:#a6e22e">CacheItemPairList</span>) <span style="color:#a6e22e">Swap</span>(<span style="color:#a6e22e">i</span>, <span style="color:#a6e22e">j</span> <span style="color:#66d9ef">int</span>)      { <span style="color:#a6e22e">p</span>[<span style="color:#a6e22e">i</span>], <span style="color:#a6e22e">p</span>[<span style="color:#a6e22e">j</span>] = <span style="color:#a6e22e">p</span>[<span style="color:#a6e22e">j</span>], <span style="color:#a6e22e">p</span>[<span style="color:#a6e22e">i</span>] }
+<span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">p</span> <span style="color:#a6e22e">CacheItemPairList</span>) <span style="color:#a6e22e">Len</span>() <span style="color:#66d9ef">int</span>           { <span style="color:#66d9ef">return</span> len(<span style="color:#a6e22e">p</span>) }
+<span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">p</span> <span style="color:#a6e22e">CacheItemPairList</span>) <span style="color:#a6e22e">Less</span>(<span style="color:#a6e22e">i</span>, <span style="color:#a6e22e">j</span> <span style="color:#66d9ef">int</span>) <span style="color:#66d9ef">bool</span> { <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">p</span>[<span style="color:#a6e22e">i</span>].<span style="color:#a6e22e">AccessCount</span> &gt; <span style="color:#a6e22e">p</span>[<span style="color:#a6e22e">j</span>].<span style="color:#a6e22e">AccessCount</span> }
+
+<span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">table</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">CacheTable</span>) <span style="color:#a6e22e">MostAccessed</span>(<span style="color:#a6e22e">count</span> <span style="color:#66d9ef">int64</span>) []<span style="color:#f92672">*</span><span style="color:#a6e22e">CacheItem</span> {
+	<span style="color:#f92672">...</span>
+	<span style="color:#a6e22e">p</span> <span style="color:#f92672">:=</span> make(<span style="color:#a6e22e">CacheItemPairList</span>, len(<span style="color:#a6e22e">table</span>.<span style="color:#a6e22e">items</span>))
+	<span style="color:#a6e22e">i</span> <span style="color:#f92672">:=</span> <span style="color:#ae81ff">0</span>
+	<span style="color:#66d9ef">for</span> <span style="color:#a6e22e">k</span>, <span style="color:#a6e22e">v</span> <span style="color:#f92672">:=</span> <span style="color:#66d9ef">range</span> <span style="color:#a6e22e">table</span>.<span style="color:#a6e22e">items</span> {
+		<span style="color:#a6e22e">p</span>[<span style="color:#a6e22e">i</span>] = <span style="color:#a6e22e">CacheItemPair</span>{<span style="color:#a6e22e">k</span>, <span style="color:#a6e22e">v</span>.<span style="color:#a6e22e">accessCount</span>}
+		<span style="color:#a6e22e">i</span><span style="color:#f92672">++</span>
+	}
+	<span style="color:#a6e22e">sort</span>.<span style="color:#a6e22e">Sort</span>(<span style="color:#a6e22e">p</span>)
+	<span style="color:#f92672">...</span>
+}
+</code></pre></div>
+    </div>
+
+    <div class="post-copyright">
+             
+            <p class="copyright-item">
+                <span>Author:</span>
+                <span>Yfei </span>
+                </p>
+            
+           
+             
+            <p class="copyright-item">
+                    <span>Link:</span>
+                    <a href=https://Yfei1104.github.io/2020/go-library-cache2go-2/>https://Yfei1104.github.io/2020/go-library-cache2go-2/</span>
+            </p>
+            
+            
+    </div>
+
+  
+    <div class="post-tags">
+        
+            <section>
+            <i class="iconfont icon-tag"></i>Tag(s): 
+            
+            <span class="tag"><a href="https://Yfei1104.github.io/tags/golang/">
+                    #golang</a></span>
+            
+            </section>
+        
+        <section>
+                <a href="javascript:window.history.back();">back</a></span> · 
+                <span><a href="https://Yfei1104.github.io">home</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav">
+        
+        <a href="https://Yfei1104.github.io/2020/go-library-caches2go-1/" class="prev" rel="prev" title="golang-cache2go-1"><i class="iconfont icon-left"></i>&nbsp;golang-cache2go-1</a>
+         
+        
+    </div>
+
+    <div class="post-comment">
+          
+                 
+          
+    </div>
+</article>
+          </div>
+		   </main>
+      <footer class="footer">
+    <div class="copyright">
+        &copy;
+        
+        <span itemprop="copyrightYear">2020 - 2020</span>
+        
+        <span class="with-love">
+    	 <i class="iconfont icon-love"></i> 
+         </span>
+         
+            <span class="author" itemprop="copyrightHolder"><a href="https://Yfei1104.github.io">Yfei</a> | </span> 
+         
+
+         
+		  <span>Powered by <a href="https://gohugo.io/" target="_blank" rel="external nofollow">Hugo</a> & <a href="https://github.com/liuzc/leaveit" target="_blank" rel="external nofollow">LeaveIt</a></span> 
+    </div>
+</footer>
+
+
+
+
+
+
+
+
+
+
+
+
+    
+    
+    <script src="/js/vendor_no_gallery.min.js" async=""></script>
+    
+  
+
+
+
+     </div>
+  </body>
+</html>

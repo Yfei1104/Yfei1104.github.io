@@ -10,7 +10,7 @@
   
   
   <link rel="prev" href="https://Yfei1104.github.io/2020/go-library-caches2go-1/" />
-  
+  <link rel="next" href="https://Yfei1104.github.io/2020/leetcode-%E4%BA%8C%E5%88%86%E6%9F%A5%E6%89%BE/" />
   <link rel="canonical" href="https://Yfei1104.github.io/2020/go-library-cache2go-2/" />
   <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
@@ -46,7 +46,7 @@
     "articleSection" : "posts",
     "name" : "golang-cache2go-2",
     "headline" : "golang-cache2go-2",
-    "description" : "上次我们介绍了cache2go缓存库的两种类型和其中的一些方法的实现，今天我们接着继续详细介绍cachetable类型提供的一些方法的实现。\n缓存表提供了缓存常见的方法：\n 增：Add，NotFoundAdd 删：Delete 查：Value 过期检查：expirationCheck 缓存刷新：Flush 缓存遍历：Foreach 回调函数设置：SetAboutToDeleteItemCallback，SetAddedItemCallback，SetDataLoader 访问最多的前几个缓存项：MostAccessed \u0026hellip;  添加缓存   首先通过NewCacheItem(key, lifeSpan, value)来完成CacheItem的初始化 接下里需要通过调用自身的addInternal(cacheItem)将cacheItem添加到cacheTable中，并且开始检查是否有过期缓存 addInternal()方法要在加锁之后才能调用，并且在执行callback之前不能解除锁  func (table *CacheTable) addInternal(item *CacheItem) { \/\/ 要在加锁之后才能调用该方法，并且在执行callback之前不能解除锁  ... table.items[item.key] = item expDur := table.cleanupInterval addedItem := table.addedItem table.Unlock() \/\/ 添加item的回调函数 \tif addedItem != nil { for _, callback := range addedItem { callback(item) } } \/\/ lifespan小于清除间隔时就要执行过期检查，重设cleanupInterval \tif item.lifeSpan \u0026gt; 0 \u0026amp;\u0026amp; (expDur == 0 || item.",
+    "description" : "上次我们介绍了cache2go缓存库的两种类型和其中的一些方法的实现，今天我们接着继续详细介绍cachetable类型提供的一些方法的实现。\n缓存表提供了缓存常见的方法：\n 增：Add，NotFoundAdd 删：Delete 查：Value 过期检查：expirationCheck 缓存刷新：Flush 缓存遍历：Foreach 回调函数设置：SetAboutToDeleteItemCallback，SetAddedItemCallback，SetDataLoader 访问最多的前几个缓存项：MostAccessed \u0026hellip;  添加缓存   首先通过NewCacheItem(key, lifeSpan, value)来完成CacheItem的初始化 接下里需要通过调用自身的addInternal(cacheItem)将cacheItem添加到cacheTable中，并且执行添加item的回调函数 当cleanupInterval等于0或者lifespan\u0026lt;cleanupInterval时开始检查是否有过期缓存 addInternal()方法要在加锁之后才能调用，并且在执行callback之前不能解除锁  func (table *CacheTable) addInternal(item *CacheItem) { \/\/ 要在加锁之后才能调用该方法，并且在执行callback之前不能解除锁  ... table.items[item.key] = item expDur := table.cleanupInterval addedItem := table.addedItem table.Unlock() \/\/ 添加item的回调函数 \tif addedItem != nil { for _, callback := range addedItem { callback(item) } } \/\/ lifespan小于清除间隔时就要执行过期检查，重设cleanupInterval \tif item.lifeSpan \u0026gt; 0 \u0026amp;\u0026amp; (expDur == 0 || item.",
     "inLanguage" : "en-us",
     "author" : "Yfei",
     "creator" : "Yfei",
@@ -57,7 +57,7 @@
     "datePublished": "2020-08-08 17:22:57 \u002b0800 CST",
     "dateModified" : "2020-08-08 17:22:57 \u002b0800 CST",
     "url" : "https:\/\/Yfei1104.github.io\/2020\/go-library-cache2go-2\/",
-    "wordCount" : "325",
+    "wordCount" : "327",
     "keywords" : [ "golang", "miss you"]
 }
 </script>
@@ -163,7 +163,8 @@
 <hr>
 <ul>
 <li>首先通过<code>NewCacheItem(key, lifeSpan, value)</code>来完成CacheItem的初始化</li>
-<li>接下里需要通过调用自身的<code>addInternal(cacheItem)</code>将cacheItem添加到cacheTable中，并且开始检查是否有过期缓存</li>
+<li>接下里需要通过调用自身的<code>addInternal(cacheItem)</code>将cacheItem添加到cacheTable中，并且执行添加item的回调函数</li>
+<li>当cleanupInterval等于0或者lifespan&lt;cleanupInterval时开始检查是否有过期缓存</li>
 <li><code>addInternal()</code>方法要在加锁之后才能调用，并且在执行callback之前不能解除锁</li>
 </ul>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">table</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">CacheTable</span>) <span style="color:#a6e22e">addInternal</span>(<span style="color:#a6e22e">item</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">CacheItem</span>) {
@@ -232,8 +233,9 @@
 <hr>
 <ul>
 <li>dataloader回调是在调用<code>Value()</code>时触发</li>
-<li>当查找某个key的缓存，如果找不到且我们设置了dataloader回调，就会执行该回调函数</li>
-<li>比如我们缓存了数据库中的一些用户信息，如果我们可以设置dataloader回调，如果从缓存里面查找某个用户信息时没有找到，就从数据库中读取该用户信息并加到缓存里面，这个动作就可以加在dataloader回调里面。</li>
+<li>当查找某个key的缓存，如果找不到且设置了dataloader的回调，就会执行该回调函数</li>
+<li>比如我们缓存了数据库中的一些用户信息，可以提前设置dataloader回调，如果从缓存里面查找某个用户信息时没有找到，就从数据库中读取该用户信息并加到缓存里面</li>
+<li>value函数通过key找到缓存项，如果找到，更新最近的访问时间，并返回item。如果没找到，且设置了dataloader回调函数就会执行该函数，创建新的item添加到table中</li>
 </ul>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">table</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">CacheTable</span>) <span style="color:#a6e22e">SetDataLoader</span>(<span style="color:#a6e22e">f</span> <span style="color:#66d9ef">func</span>(<span style="color:#66d9ef">interface</span>{}, <span style="color:#f92672">...</span><span style="color:#66d9ef">interface</span>{}) <span style="color:#f92672">*</span><span style="color:#a6e22e">CacheItem</span>) {
 	<span style="color:#a6e22e">table</span>.<span style="color:#a6e22e">Lock</span>()
@@ -263,7 +265,7 @@
 <hr>
 <ul>
 <li>为了提供访问最多的前几个缓存项，cache2go定义了<code>CacheItemPair</code>和<code>CacheItemPairList</code></li>
-<li><code>CacheItemPair</code>由缓存的<code>key</code>和<code>AccessCount</code>组成，而<code>CacheItemPairList</code>则是<code>CacheItemPair</code>组成的Slice，且实现了sort包下的Interface接口的三个方法<code>Swap()</code>、<code>Len()</code>、<code>Less()</code>，调用<code>sort()</code>方法进行排序</li>
+<li><code>CacheItemPair</code>由缓存的<code>key</code>和<code>AccessCount</code>组成，而<code>CacheItemPairList</code>则是<code>CacheItemPair</code>组成的Slice，且实现了sort包下的Interface接口的三个方法<code>Swap()</code>、<code>Len()</code>、<code>Less()</code>，调用Interface的<code>sort()</code>方法进行排序</li>
 </ul>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">CacheItemPair</span> <span style="color:#66d9ef">struct</span> {
 	<span style="color:#a6e22e">Key</span>         <span style="color:#66d9ef">interface</span>{}
@@ -327,6 +329,8 @@
         
         <a href="https://Yfei1104.github.io/2020/go-library-caches2go-1/" class="prev" rel="prev" title="golang-cache2go-1"><i class="iconfont icon-left"></i>&nbsp;golang-cache2go-1</a>
          
+        
+        <a href="https://Yfei1104.github.io/2020/leetcode-%E4%BA%8C%E5%88%86%E6%9F%A5%E6%89%BE/" class="next" rel="next" title="leetcode-二分查找">leetcode-二分查找&nbsp;<i class="iconfont icon-right"></i></a>
         
     </div>
 

@@ -46,7 +46,7 @@
     "articleSection" : "posts",
     "name" : "leetcode-二分查找",
     "headline" : "leetcode-二分查找",
-    "description" : "\u002b744和540，其余按照acwing\n69 35 34 \/ 74 153 33 278 162 287 275",
+    "description" : "leetcode 69. x的平方根  题目描述：实现 int sqrt(int x) 函数。\n计算并返回 x 的平方根，其中 x 是非负整数。\n由于返回类型是整数，结果只保留整数的部分，小数部分将被舍去。\n 一个数的开方sqrt一定在0~x之间，满足sqrt == x \/ sqrt。所以利用二分查找。\nclass Solution { public: int mySqrt(int x) { int l = 0, r = x; while (l \u0026lt; r) { int mid = l \u002b r \u002b 1ll \u0026gt;\u0026gt; 1; if (mid \u0026lt;= x \/ mid)\tl = mid; else\tr = mid - 1; } return r; } }; leetcode 35.",
     "inLanguage" : "en-us",
     "author" : "Yfei",
     "creator" : "Yfei",
@@ -57,7 +57,7 @@
     "datePublished": "2020-08-08 21:15:11 \u002b0800 CST",
     "dateModified" : "2020-08-08 21:15:11 \u002b0800 CST",
     "url" : "https:\/\/Yfei1104.github.io\/2020\/leetcode-%E4%BA%8C%E5%88%86%E6%9F%A5%E6%89%BE\/",
-    "wordCount" : "12",
+    "wordCount" : "1011",
     "keywords" : [ "刷题", "miss you"]
 }
 </script>
@@ -146,9 +146,311 @@
           
           
 
-          <p>+744和540，其余按照acwing</p>
-<p>69  35  34 / 74  153  33  278  162  287  275</p>
+          <h3 id="leetcode-69-x的平方根">leetcode 69. x的平方根</h3>
+<hr>
+<p>题目描述：实现 int sqrt(int x) 函数。</p>
+<p>计算并返回 x 的平方根，其中 x 是非负整数。</p>
+<p>由于返回类型是整数，结果只保留整数的部分，小数部分将被舍去。</p>
+<hr>
+<p>一个数的开方sqrt一定在0~x之间，满足sqrt == x / sqrt。所以利用二分查找。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c++" data-lang="c++"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Solution</span> {
+<span style="color:#66d9ef">public</span><span style="color:#f92672">:</span>
+    <span style="color:#66d9ef">int</span> mySqrt(<span style="color:#66d9ef">int</span> x) {
+        <span style="color:#66d9ef">int</span> l <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>, r <span style="color:#f92672">=</span> x;
+        <span style="color:#66d9ef">while</span> (l <span style="color:#f92672">&lt;</span> r) {
+            <span style="color:#66d9ef">int</span> mid <span style="color:#f92672">=</span> l <span style="color:#f92672">+</span> r <span style="color:#f92672">+</span> <span style="color:#ae81ff">1ll</span> <span style="color:#f92672">&gt;&gt;</span> <span style="color:#ae81ff">1</span>;
+            <span style="color:#66d9ef">if</span> (mid <span style="color:#f92672">&lt;=</span> x <span style="color:#f92672">/</span> mid)	l <span style="color:#f92672">=</span> mid;
+            <span style="color:#66d9ef">else</span>	r <span style="color:#f92672">=</span> mid <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>;
+        }
+        <span style="color:#66d9ef">return</span> r;
+    }
+};
+</code></pre></div><h3 id="leetcode-35-搜索插入位置">leetcode 35. 搜索插入位置</h3>
+<hr>
+<p>问题描述：给定一个排序数组和一个目标值，在数组中找到目标值，并返回其索引。如果目标值不存在于数组中，返回它将会被按顺序插入的位置。</p>
+<p>你可以假设数组中无重复元素。</p>
+<hr>
+<p>根据题目描述，我们知道要找的是大于等于target的最小的目标值的索引</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c++" data-lang="c++"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Solution</span> {
+<span style="color:#66d9ef">public</span><span style="color:#f92672">:</span>
+    <span style="color:#66d9ef">int</span> searchInsert(vector<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;&amp;</span> nums, <span style="color:#66d9ef">int</span> target) {
+        <span style="color:#66d9ef">if</span> (nums.empty() <span style="color:#f92672">||</span> nums.back() <span style="color:#f92672">&lt;</span> target)	<span style="color:#66d9ef">return</span> nums.size();
+        
+        <span style="color:#66d9ef">int</span> l <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>, r <span style="color:#f92672">=</span> nums.size() <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>;
+        <span style="color:#66d9ef">while</span> (l <span style="color:#f92672">&lt;</span> r) {
+            <span style="color:#66d9ef">int</span> mid <span style="color:#f92672">=</span> l <span style="color:#f92672">+</span> r <span style="color:#f92672">&gt;&gt;</span> <span style="color:#ae81ff">1</span>;
+            <span style="color:#66d9ef">if</span> (nums[mid] <span style="color:#f92672">&gt;=</span> target)	r <span style="color:#f92672">=</span> mid;
+            <span style="color:#66d9ef">else</span>	l <span style="color:#f92672">=</span> mid <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>;
+        }
+        <span style="color:#66d9ef">return</span> r;
+    }
+};
+</code></pre></div><h3 id="leetcode-34-在排序数组中查找元素的第一个和最后一个位置">leetcode 34. 在排序数组中查找元素的第一个和最后一个位置</h3>
+<p>问题描述：给定一个按照升序排列的整数数组 nums，和一个目标值 target。找出给定目标值在数组中的开始位置和结束位置。</p>
+<p>你的算法时间复杂度必须是 O(log n) 级别。</p>
+<p>如果数组中不存在目标值，返回 [-1, -1]。</p>
+<hr>
+<p>这道题解法和上面一道是相似的，根据题目描述，我们要找大于等于target和小于等于target的第一个数的索引。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c++" data-lang="c++"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Solution</span> {
+<span style="color:#66d9ef">public</span><span style="color:#f92672">:</span>
+    vector<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;</span> searchRange(vector<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;&amp;</span> nums, <span style="color:#66d9ef">int</span> target) {
+        <span style="color:#66d9ef">if</span> (nums.empty())   <span style="color:#66d9ef">return</span> {<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>, <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>};
 
+        <span style="color:#66d9ef">int</span> l <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>, r <span style="color:#f92672">=</span> nums.size() <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>;
+        <span style="color:#66d9ef">while</span> (l <span style="color:#f92672">&lt;</span> r) {
+            <span style="color:#66d9ef">int</span> mid <span style="color:#f92672">=</span> l <span style="color:#f92672">+</span> r <span style="color:#f92672">&gt;&gt;</span> <span style="color:#ae81ff">1</span>;
+            <span style="color:#66d9ef">if</span> (nums[mid] <span style="color:#f92672">&gt;=</span> target)    r <span style="color:#f92672">=</span> mid;
+            <span style="color:#66d9ef">else</span>    l <span style="color:#f92672">=</span> mid <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>;
+        }
+
+        <span style="color:#66d9ef">if</span> (nums[l] <span style="color:#f92672">!=</span> target)  <span style="color:#66d9ef">return</span> {<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>, <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>};
+        <span style="color:#66d9ef">int</span> start <span style="color:#f92672">=</span> l;
+
+        l <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>, r <span style="color:#f92672">=</span> nums.size() <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>;
+        <span style="color:#66d9ef">while</span> (l <span style="color:#f92672">&lt;</span> r) {
+            <span style="color:#66d9ef">int</span> mid <span style="color:#f92672">=</span> l <span style="color:#f92672">+</span> r <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span> <span style="color:#f92672">&gt;&gt;</span> <span style="color:#ae81ff">1</span>;
+            <span style="color:#66d9ef">if</span> (nums[mid] <span style="color:#f92672">&lt;=</span> target)    l <span style="color:#f92672">=</span> mid;
+            <span style="color:#66d9ef">else</span>    r <span style="color:#f92672">=</span> mid <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>;
+        }
+
+        <span style="color:#66d9ef">return</span> {start, l};
+    }
+};
+</code></pre></div><p>leetcode 74. 搜索二维矩阵</p>
+<hr>
+<p>问题描述：编写一个高效的算法来判断 m x n 矩阵中，是否存在一个目标值。该矩阵具有如下特性：</p>
+<p>每行中的整数从左到右按升序排列。
+每行的第一个整数大于前一行的最后一个整数。</p>
+<hr>
+<p>可以将 <code>m x n</code> 矩阵视为长度为 <code>m x n</code>的有序数组。这样数组上的元素就是单调增的了，我们可以使用二分法很方便的找到target。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c++" data-lang="c++"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Solution</span> {
+<span style="color:#66d9ef">public</span><span style="color:#f92672">:</span>
+    <span style="color:#66d9ef">bool</span> searchMatrix(vector<span style="color:#f92672">&lt;</span>vector<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;&gt;&amp;</span> matrix, <span style="color:#66d9ef">int</span> target) {
+        <span style="color:#66d9ef">if</span> (matrix.empty() <span style="color:#f92672">||</span> matrix[<span style="color:#ae81ff">0</span>].empty())    <span style="color:#66d9ef">return</span> false;
+
+        <span style="color:#66d9ef">int</span> m <span style="color:#f92672">=</span> matrix.size(), n <span style="color:#f92672">=</span> matrix[<span style="color:#ae81ff">0</span>].size();
+        <span style="color:#66d9ef">int</span> l <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>, r <span style="color:#f92672">=</span> m <span style="color:#f92672">*</span> n <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>;
+        <span style="color:#66d9ef">while</span> (l <span style="color:#f92672">&lt;</span> r) {
+            <span style="color:#66d9ef">int</span> mid <span style="color:#f92672">=</span> l <span style="color:#f92672">+</span> r <span style="color:#f92672">&gt;&gt;</span> <span style="color:#ae81ff">1</span>;
+            <span style="color:#66d9ef">if</span> (matrix[mid <span style="color:#f92672">/</span> n][mid <span style="color:#f92672">%</span> n] <span style="color:#f92672">&gt;=</span> target)    r <span style="color:#f92672">=</span> mid;
+            <span style="color:#66d9ef">else</span>    l <span style="color:#f92672">=</span> mid <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>;
+        }
+        <span style="color:#66d9ef">if</span> (matrix[r <span style="color:#f92672">/</span>n][r <span style="color:#f92672">%</span> n] <span style="color:#f92672">!=</span> target)  <span style="color:#66d9ef">return</span> false;
+        <span style="color:#66d9ef">return</span> true;
+    }
+};
+</code></pre></div><p>也可以从二维矩阵的右上角出发，根据二维矩阵的特性</p>
+<ul>
+<li>如果大于target，就往左移动</li>
+<li>如果小于target，就往下移动</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c++" data-lang="c++"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Solution</span> {
+<span style="color:#66d9ef">public</span><span style="color:#f92672">:</span>
+    <span style="color:#66d9ef">bool</span> searchMatrix(vector<span style="color:#f92672">&lt;</span>vector<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;&gt;&amp;</span> matrix, <span style="color:#66d9ef">int</span> target) {
+        <span style="color:#66d9ef">if</span> (matrix.empty() <span style="color:#f92672">||</span> matrix[<span style="color:#ae81ff">0</span>].empty())    <span style="color:#66d9ef">return</span> false;
+
+        <span style="color:#66d9ef">int</span> m <span style="color:#f92672">=</span> matrix.size(), n <span style="color:#f92672">=</span> matrix[<span style="color:#ae81ff">0</span>].size();
+        <span style="color:#66d9ef">int</span> up <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>, right <span style="color:#f92672">=</span> n <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>;
+
+        <span style="color:#66d9ef">while</span> (up <span style="color:#f92672">&lt;</span> m <span style="color:#f92672">&amp;&amp;</span> right <span style="color:#f92672">&gt;=</span> <span style="color:#ae81ff">0</span>) {
+            <span style="color:#66d9ef">if</span> (matrix[up][right] <span style="color:#f92672">==</span> target)    <span style="color:#66d9ef">return</span> true;
+            <span style="color:#66d9ef">else</span> <span style="color:#a6e22e">if</span> (matrix[up][right] <span style="color:#f92672">&lt;</span> target)    up <span style="color:#f92672">++</span>;
+            <span style="color:#66d9ef">else</span>    right <span style="color:#f92672">--</span>;
+        }
+        <span style="color:#66d9ef">return</span> false;
+    }
+};
+</code></pre></div><h3 id="leetcode-153-寻找旋转排序数组中的最小值">leetcode 153. 寻找旋转排序数组中的最小值</h3>
+<hr>
+<p>题目描述：假设按照升序排序的数组在预先未知的某个点上进行了旋转。</p>
+<p>( 例如，数组 [0,1,2,4,5,6,7] 可能变为 [4,5,6,7,0,1,2] )。</p>
+<p>请找出其中最小的元素。</p>
+<p>你可以假设数组中不存在重复元素。</p>
+<hr>
+<p>升序排序的数组查找元素，我们很自然的想到了二分，但是这个数组进行了旋转，所以我们要用一种改进的二分搜索，判断条件与标准的二分搜索有些不同。</p>
+<ul>
+<li>找到数组的中间元素 <code>mid</code>。</li>
+<li>如果<code>mid &lt;= nums.back()</code>，我们需要在 <code>mid</code> 左边搜索。</li>
+<li>如果<code>mid &gt; nums.back()</code>，我们需要在 <code>mid</code> 右边搜索。</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c++" data-lang="c++"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Solution</span> {
+<span style="color:#66d9ef">public</span><span style="color:#f92672">:</span>
+    <span style="color:#66d9ef">int</span> findMin(vector<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;&amp;</span> nums) {
+        <span style="color:#66d9ef">if</span> (nums.empty())	<span style="color:#66d9ef">return</span> <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>;
+        
+        <span style="color:#66d9ef">int</span> l <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>, r <span style="color:#f92672">=</span> nums.size() <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>;
+        <span style="color:#66d9ef">while</span> (l <span style="color:#f92672">&lt;</span> r) {
+            <span style="color:#66d9ef">int</span> mid <span style="color:#f92672">=</span> l <span style="color:#f92672">+</span> r <span style="color:#f92672">&gt;&gt;</span> <span style="color:#ae81ff">1</span>;
+            <span style="color:#66d9ef">if</span> (nums[mid] <span style="color:#f92672">&lt;=</span> nums.back())   r <span style="color:#f92672">=</span> mid;
+            <span style="color:#66d9ef">else</span> l <span style="color:#f92672">=</span> mid <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>;
+        }
+        <span style="color:#66d9ef">return</span> nums[r];
+    }
+};
+</code></pre></div><p>如果上述的数组是带有重复元素的，那我们可以判断如果重复元素在最左边l和最右边r，那么就将左边的l++,就可以转换为上面的无重复元素的问题了，如果如果重复元素不在最左边和最右边，那么也可以当作是上面的无重复元素的问题。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c++" data-lang="c++"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Solution</span> {
+<span style="color:#66d9ef">public</span><span style="color:#f92672">:</span>
+    <span style="color:#66d9ef">int</span> findMin(vector<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;&amp;</span> nums) {
+        <span style="color:#66d9ef">if</span> (nums.empty())	<span style="color:#66d9ef">return</span> <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>;
+        
+        <span style="color:#66d9ef">int</span> l <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>, r <span style="color:#f92672">=</span> nums.size() <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>;
+        <span style="color:#66d9ef">while</span> (l <span style="color:#f92672">&lt;</span> r <span style="color:#f92672">&amp;&amp;</span> nums[l] <span style="color:#f92672">==</span> nums[r])	l <span style="color:#f92672">++</span>;
+        
+        <span style="color:#66d9ef">while</span> (l <span style="color:#f92672">&lt;</span> r) {
+            <span style="color:#66d9ef">int</span> mid <span style="color:#f92672">=</span> l <span style="color:#f92672">+</span> r <span style="color:#f92672">&gt;&gt;</span> <span style="color:#ae81ff">1</span>;
+            <span style="color:#66d9ef">if</span> (nums[mid] <span style="color:#f92672">&lt;=</span> nums.back())   r <span style="color:#f92672">=</span> mid;
+            <span style="color:#66d9ef">else</span> l <span style="color:#f92672">=</span> mid <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>;
+        }
+        <span style="color:#66d9ef">return</span> nums[r];
+    }
+};
+</code></pre></div><h3 id="leetcode-33-搜索旋转排序数组">leetcode 33. 搜索旋转排序数组</h3>
+<hr>
+<p>问题描述：假设按照升序排序的数组在预先未知的某个点上进行了旋转。</p>
+<p>( 例如，数组 [0,1,2,4,5,6,7] 可能变为 [4,5,6,7,0,1,2] )。</p>
+<p>搜索一个给定的目标值，如果数组中存在这个目标值，则返回它的索引，否则返回 -1 。</p>
+<p>你可以假设数组中不存在重复的元素。</p>
+<p>你的算法时间复杂度必须是 O(log n) 级别。</p>
+<hr>
+<p>这道题和上面那道很类似，一个是求最小的元素，一个是求目标值target，可以在上一道题目的基础上求出目标值。</p>
+<ul>
+<li>先求出最小值的位置x</li>
+<li>如果<code>target &gt; nums.back()</code>,就在<code>x ~ r</code>之间二分</li>
+<li>反之，在<code>l ~ x</code>之间二分</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c++" data-lang="c++"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Solution</span> {
+<span style="color:#66d9ef">public</span><span style="color:#f92672">:</span>
+    <span style="color:#66d9ef">int</span> search(vector<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;&amp;</span> nums, <span style="color:#66d9ef">int</span> target) {
+        <span style="color:#66d9ef">if</span> (nums.empty())   <span style="color:#66d9ef">return</span> <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>;
+
+        <span style="color:#66d9ef">int</span> l <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>, r <span style="color:#f92672">=</span> nums.size() <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>;
+        <span style="color:#66d9ef">while</span> (l <span style="color:#f92672">&lt;</span> r) {
+            <span style="color:#66d9ef">int</span> mid <span style="color:#f92672">=</span> l <span style="color:#f92672">+</span> r <span style="color:#f92672">&gt;&gt;</span> <span style="color:#ae81ff">1</span>;
+            <span style="color:#66d9ef">if</span> (nums[mid] <span style="color:#f92672">&lt;=</span> nums.back())   r <span style="color:#f92672">=</span> mid;
+            <span style="color:#66d9ef">else</span>    l <span style="color:#f92672">=</span> mid <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>;
+        }
+
+        <span style="color:#66d9ef">if</span> (target <span style="color:#f92672">&lt;=</span> nums.back())  r <span style="color:#f92672">=</span> nums.size() <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>;
+        <span style="color:#66d9ef">else</span>    l <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>, r <span style="color:#f92672">--</span>;
+
+        <span style="color:#66d9ef">while</span> (l <span style="color:#f92672">&lt;</span> r) {
+            <span style="color:#66d9ef">int</span> mid <span style="color:#f92672">=</span> l <span style="color:#f92672">+</span> r <span style="color:#f92672">&gt;&gt;</span> <span style="color:#ae81ff">1</span>;
+            <span style="color:#66d9ef">if</span> (nums[mid] <span style="color:#f92672">&gt;=</span> target)    r <span style="color:#f92672">=</span> mid;
+            <span style="color:#66d9ef">else</span>    l <span style="color:#f92672">=</span> mid <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>;
+        }
+        <span style="color:#66d9ef">if</span> (nums[l] <span style="color:#f92672">!=</span> target)  <span style="color:#66d9ef">return</span> <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>;
+        <span style="color:#66d9ef">return</span> l;
+    }
+};
+</code></pre></div><h3 id="leetcode-162-寻找峰值">leetcode 162. 寻找峰值</h3>
+<hr>
+<p>峰值元素是指其值大于左右相邻值的元素。</p>
+<p>给定一个输入数组 nums，其中 nums[i] ≠ nums[i+1]，找到峰值元素并返回其索引。</p>
+<p>数组可能包含多个峰值，在这种情况下，返回任何一个峰值所在位置即可。</p>
+<p>你可以假设 nums[-1] = nums[n] = -∞。</p>
+<hr>
+<p>由于<code>nums[-1] = nums[n] = -∞</code>所以如果在数组中存在<code>nums[mid] &gt; nums[mid + 1]</code>或者<code>nums[mid] &lt; nums[mid + 1]</code>就必然存在峰值。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c++" data-lang="c++"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Solution</span> {
+<span style="color:#66d9ef">public</span><span style="color:#f92672">:</span>
+    <span style="color:#66d9ef">int</span> findPeakElement(vector<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;&amp;</span> nums) {
+        <span style="color:#66d9ef">int</span> l <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>, r <span style="color:#f92672">=</span> nums.size() <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>;
+        <span style="color:#66d9ef">while</span> (l <span style="color:#f92672">&lt;</span> r) {
+            <span style="color:#66d9ef">int</span> mid <span style="color:#f92672">=</span> l <span style="color:#f92672">+</span> r <span style="color:#f92672">&gt;&gt;</span> <span style="color:#ae81ff">1</span>;
+            <span style="color:#66d9ef">if</span> (nums[mid] <span style="color:#f92672">&gt;</span> nums[mid <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>])  r <span style="color:#f92672">=</span> mid;
+            <span style="color:#66d9ef">else</span>    l <span style="color:#f92672">=</span> mid <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>;
+        }
+        <span style="color:#66d9ef">return</span> l;
+    }
+};
+</code></pre></div><h3 id="leetcode-287-寻找重复数">leetcode 287. 寻找重复数</h3>
+<hr>
+<p>问题描述：给定一个包含 n + 1 个整数的数组 nums，其数字都在 1 到 n 之间（包括 1 和 n），可知至少存在一个重复的整数。假设只有一个重复的整数，找出这个重复的数。</p>
+<hr>
+<h5 id="方法一-二分查找">方法一 ：二分查找</h5>
+<ul>
+<li>数组元素肯定是 1 到 n 中的某一个，而数组元素总数为n + 1，所以可以找到中间值mid，然后分别统计数落在 [1, mid]和[mid, r]之间的数的个数k</li>
+<li>如果k大于区间的数的个数的时候，重复的数就在这个区间内</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c++" data-lang="c++"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Solution</span> {
+<span style="color:#66d9ef">public</span><span style="color:#f92672">:</span>
+    <span style="color:#66d9ef">int</span> findDuplicate(vector<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;&amp;</span> nums) {
+        <span style="color:#66d9ef">if</span>(nums.empty()) <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>;
+        <span style="color:#66d9ef">int</span> n <span style="color:#f92672">=</span> nums.size() <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>;
+        <span style="color:#66d9ef">int</span> l <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>, r <span style="color:#f92672">=</span> n;
+        <span style="color:#66d9ef">while</span>(l <span style="color:#f92672">&lt;</span> r)
+        {
+            <span style="color:#66d9ef">int</span> mid <span style="color:#f92672">=</span> l <span style="color:#f92672">+</span> r <span style="color:#f92672">&gt;&gt;</span><span style="color:#ae81ff">1</span>;
+            <span style="color:#66d9ef">int</span> res <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+            <span style="color:#66d9ef">for</span>(<span style="color:#66d9ef">auto</span> x : nums)
+            {
+                <span style="color:#66d9ef">if</span>(x <span style="color:#f92672">&gt;=</span> l <span style="color:#f92672">&amp;&amp;</span> x <span style="color:#f92672">&lt;=</span> mid) res<span style="color:#f92672">++</span>; 
+            }
+
+            <span style="color:#66d9ef">if</span>(res <span style="color:#f92672">&gt;</span> mid <span style="color:#f92672">-</span> l <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>) r <span style="color:#f92672">=</span> mid;
+            <span style="color:#66d9ef">else</span> l <span style="color:#f92672">=</span> mid <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>;
+        }
+        <span style="color:#66d9ef">return</span> r;
+    }
+};
+</code></pre></div><h5 id="方法一二快慢指针">方法一二：快慢指针</h5>
+<p>将这个题目给的特殊的数组当作一个链表来看，数组的下标就是指向元素的指针，把数组的元素也看作指针。如 0 是指针，指向 nums[0]，而 nums[0] 也是指针，指向 nums[nums[0]]</p>
+<p>由于有重复元素，就必然会成环，使用快慢指针就可以找到环的入口，也就是重复元素本身</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c++" data-lang="c++"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Solution</span> {
+<span style="color:#66d9ef">public</span><span style="color:#f92672">:</span>
+    <span style="color:#66d9ef">int</span> findDuplicate(vector<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;&amp;</span> nums) {
+        <span style="color:#66d9ef">int</span> slow <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>, fast <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+        <span style="color:#66d9ef">while</span> (true) {
+            fast <span style="color:#f92672">=</span> nums[nums[fast]];
+            slow <span style="color:#f92672">=</span> nums[slow];
+
+            <span style="color:#66d9ef">if</span> (fast <span style="color:#f92672">==</span> slow)
+                <span style="color:#66d9ef">break</span>;
+        }
+
+        slow <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+        <span style="color:#66d9ef">while</span> (true) {
+            fast <span style="color:#f92672">=</span> nums[fast];
+            slow <span style="color:#f92672">=</span> nums[slow];
+
+            <span style="color:#66d9ef">if</span> (fast <span style="color:#f92672">==</span> slow)
+                <span style="color:#66d9ef">break</span>;
+        }
+        <span style="color:#66d9ef">return</span> slow;
+    }
+};
+</code></pre></div><h3 id="leetcode-540-有序数组中的单一元素">leetcode 540. 有序数组中的单一元素</h3>
+<hr>
+<p>给定一个只包含整数的有序数组，每个元素都会出现两次，唯有一个数只会出现一次，找出这个数。</p>
+<hr>
+<ul>
+<li>
+<p>找出数组中只出现一次的元素，要求用logn的时间。</p>
+</li>
+<li>
+<p>本题在二分基础上，只搜索满足条件的偶数位置。</p>
+</li>
+<li>
+<p>对于合法的序列，例如 11 33 44， 可以发现偶数下标i对应的数nums[i] 等于nums[i + 1]</p>
+<p>而不合法序列 如 11 22 3 44 可以发现出现3之后的偶数位置不满足了nums[i] 等于nums[i + 1]这个性质</p>
+</li>
+<li>
+<p>所以搜索满足nums[i] != nums[i + 1]的最小下标，可以发现此时的结果就是单个元素的位置。</p>
+</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c++" data-lang="c++"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Solution</span> {
+<span style="color:#66d9ef">public</span><span style="color:#f92672">:</span>
+    <span style="color:#66d9ef">int</span> singleNonDuplicate(vector<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;&amp;</span> nums) {
+        <span style="color:#66d9ef">int</span> l <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>, r <span style="color:#f92672">=</span> nums.size() <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>;
+        <span style="color:#66d9ef">while</span> (l <span style="color:#f92672">&lt;</span> r) {
+            <span style="color:#66d9ef">int</span> mid <span style="color:#f92672">=</span> l <span style="color:#f92672">+</span> r <span style="color:#f92672">&gt;&gt;</span> <span style="color:#ae81ff">1</span>;
+            <span style="color:#66d9ef">if</span> (mid <span style="color:#f92672">%</span> <span style="color:#ae81ff">2</span> <span style="color:#f92672">==</span> <span style="color:#ae81ff">1</span>)   mid <span style="color:#f92672">--</span>;
+            <span style="color:#66d9ef">if</span> (nums[mid] <span style="color:#f92672">!=</span> nums[mid <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>])    r <span style="color:#f92672">=</span> mid;
+            <span style="color:#66d9ef">else</span>    l <span style="color:#f92672">=</span> mid <span style="color:#f92672">+</span> <span style="color:#ae81ff">2</span>;
+        }
+        <span style="color:#66d9ef">return</span> nums[r];
+    }
+};
+</code></pre></div>
     </div>
 
     <div class="post-copyright">

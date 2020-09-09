@@ -6,10 +6,19 @@
     <description>Recent content in golang-library on miss you</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sat, 08 Aug 2020 17:22:57 +0800</lastBuildDate>
+    <lastBuildDate>Wed, 09 Sep 2020 10:49:51 +0800</lastBuildDate>
     
 	<atom:link href="https://Yfei1104.github.io/categories/golang-library/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>golang-worker-pool</title>
+      <link>https://Yfei1104.github.io/2020/go-worker-pool/</link>
+      <pubDate>Wed, 09 Sep 2020 10:49:51 +0800</pubDate>
+      
+      <guid>https://Yfei1104.github.io/2020/go-worker-pool/</guid>
+      <description>/待完成</description>
+    </item>
     
     <item>
       <title>golang-cache2go-2</title>

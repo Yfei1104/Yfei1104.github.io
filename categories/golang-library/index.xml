@@ -17,7 +17,11 @@
       <pubDate>Wed, 09 Sep 2020 10:49:51 +0800</pubDate>
       
       <guid>https://Yfei1104.github.io/2020/go-worker-pool/</guid>
-      <description>/待完成</description>
+      <description>golang工作池公共库：Go 高性能异步并发goroutine池。接口调用简单、支持错误返回、限制任务执行的并发性，而不是排队的任务数、无论排队多少任务，都不会阻止提交任务。可用于控制并发访问、并发执行。
+安装  $ go get github.com/xxjwxc/gowp 实现  WorkerPool的定义如下：
+type WorkPool struct { closed int32 isQueTask int32 // Mark whether queue retrieval is task. 标记是否队列取出任务 	errChan chan error // error chan 	timeout time.Duration // max timeout 	wg sync.WaitGroup task chan TaskHandler waitingQueue *myqueue.MyQueue } 其中TaskHandler是一个返回时error的func()函数。
+定义完工作池后需要注册工作池，并且设置最大的并发数：
+func New(max int) *WorkPool { // 注册工作池，并设置最大并发数 	if max &amp;lt; 1 { max = 1 } p := &amp;amp;WorkPool{ task: make(chan TaskHandler, 2*max), errChan: make(chan error, 1), waitingQueue: myqueue.</description>
     </item>
     
     <item>
